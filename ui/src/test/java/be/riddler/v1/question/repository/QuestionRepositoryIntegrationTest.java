@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import static be.riddler.v1.fixture.Fixture.Question.dbId;
+import static be.riddler.v1.fixture.Fixture.Question.DB_ID;
 import static be.riddler.v1.question.client.model.QuestionType.MULTIPLE_CHOICE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,7 +29,7 @@ class QuestionRepositoryIntegrationTest extends AbstractRepositoryIntegrationTes
 
     @Test
     void findById() {
-        var question = questionRepository.findById(dbId);
+        var question = questionRepository.findById(DB_ID);
         assertTrue(question.isPresent());
         assertEquals(MULTIPLE_CHOICE, question.get().getType());
         assertEquals("Question 3", question.get().getQuestion());

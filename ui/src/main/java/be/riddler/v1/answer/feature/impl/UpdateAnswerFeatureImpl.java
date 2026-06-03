@@ -12,7 +12,6 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
 import java.util.UUID;
 
 import static lombok.AccessLevel.PACKAGE;
@@ -32,33 +31,30 @@ class UpdateAnswerFeatureImpl implements UpdateAnswerFeature {
     @Transactional
     @Override
     public @NonNull Answer update(@NonNull UUID answerId, @NonNull UpdateAnswer updateAnswer) {
-        var answer = answerRepository.findById(answerId);
+        var answerEntity = answerRepository.findById(answerId)
+                .orElseThrow(() -> new AnswerNotFound(answerId));
 
-        if (answer.isPresent()) {
-            var answerEntity = answer.get();
-            updateAnswer.values()
-                    .forEach(updateSolution -> {
-                        if (updateSolution.id() != null) {
-                            answerEntity.getSolutions()
-                                    .stream()
-                                    .filter(s -> s.getId().equals(updateSolution.id()))
-                                    .findFirst()
-                                    .ifPresent(solutionEntity -> {
-                                        if (!Objects.equals(solutionEntity.getValue(), updateSolution.value())) {
-                                            solutionEntity.setValue(updateSolution.value());
-                                        }
-                                    });
-                        } else {
-                            answerEntity.getSolutions().add(solutionRepository.save(SolutionEntity.builder()
-                                    .value(updateSolution.value())
-                                    .answer(answerEntity)
-                                    .build()));
-                        }
-                    });
-            answerRepository.save(answerEntity);
-            return AnswerMapper.fromAnswerEntity(answerEntity);
-        } else {
-            throw new IllegalStateException("Answer with id " + answerId + " not found");
-        }
+        updateAnswer.values()
+                .forEach(updateSolution -> {
+                    if (updateSolution.id() != null) {
+                        answerEntity.getSolutions()
+                                .stream()
+                                .filter(solutionEntity -> solutionEntity.isSameId(updateSolution.id()))
+                                .findFirst()
+                                .ifPresent(solutionEntity -> {
+                                    if (!solutionEntity.isSame(updateSolution.value())) {
+                                        solutionEntity.setValue(updateSolution.value());
+                                    }
+                                });
+                    } else {
+                        answerEntity.getSolutions()
+                                .add(solutionRepository.save(SolutionEntity.builder()
+                                        .value(updateSolution.value())
+                                        .answer(answerEntity)
+                                        .build()));
+                    }
+                });
+        answerRepository.save(answerEntity);
+        return AnswerMapper.fromAnswerEntity(answerEntity);
     }
 }

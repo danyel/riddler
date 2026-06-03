@@ -6,7 +6,6 @@ import be.riddler.v1.answer.entity.AnswerEntity;
 import be.riddler.v1.answer.entity.SolutionEntity;
 import be.riddler.v1.answer.repository.AnswerRepository;
 import be.riddler.v1.answer.repository.SolutionRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -17,13 +16,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
-import static be.riddler.v1.fixture.Fixture.Answer.answerId;
-import static be.riddler.v1.fixture.Fixture.Solution.solutionId;
+import static be.riddler.v1.fixture.Fixture.Answer.ANSWER_ID;
+import static be.riddler.v1.fixture.Fixture.Solution.SOLUTION_ID;
+import static java.util.List.of;
+import static java.util.Optional.empty;
+import static java.util.UUID.randomUUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
@@ -64,22 +65,30 @@ class UpdateAnswerFeatureTest {
     @Test
     void update() {
         var answerEntity = AnswerEntity.builder()
-                .id(answerId)
+                .id(ANSWER_ID)
                 .solutions(new ArrayList<>())
-                .questionId(UUID.randomUUID())
+                .questionId(randomUUID())
                 .build();
-        answerEntity.getSolutions().add(SolutionEntity.builder().id(solutionId).answer(answerEntity).value("v").build());
-        var newSolutionId = UUID.randomUUID();
-        var newSolutions = SolutionEntity.builder().value("value2").id(newSolutionId).build();
-        when(answerRepository.findById(answerId)).thenReturn(Optional.of(answerEntity));
+        answerEntity.getSolutions().add(SolutionEntity.builder()
+                .id(SOLUTION_ID)
+                .answer(answerEntity)
+                .value("v")
+                .build()
+        );
+        var newSolutionId = randomUUID();
+        var newSolutions = SolutionEntity.builder()
+                .value("value2")
+                .id(newSolutionId)
+                .build();
+        when(answerRepository.findById(ANSWER_ID)).thenReturn(Optional.of(answerEntity));
         var mappedSolution = SolutionEntity.builder().value("value2").build();
         when(solutionRepository.save(eq(mappedSolution))).thenReturn(newSolutions);
-        var updateAnswer = new UpdateAnswer(List.of(new UpdateSolution(solutionId, "value"), new UpdateSolution(null, "value2")));
+        var updateAnswer = new UpdateAnswer(of(new UpdateSolution(SOLUTION_ID, "value"), new UpdateSolution(null, "value2")));
 
-        var answer = updateAnswerFeature.update(answerId, updateAnswer);
+        var answer = updateAnswerFeature.update(ANSWER_ID, updateAnswer);
 
         var inOrder = inOrder(solutionRepository, answerRepository);
-        inOrder.verify(answerRepository).findById(answerId);
+        inOrder.verify(answerRepository).findById(ANSWER_ID);
         inOrder.verify(solutionRepository).save(onAddSolutionCaptor.capture());
         inOrder.verify(answerRepository).save(eq(answerEntity));
         inOrder.verifyNoMoreInteractions();
@@ -103,14 +112,14 @@ class UpdateAnswerFeatureTest {
     @DisplayName("Given an invalid id when updating option then illegal state exception will be thrown")
     @Test
     void updateNoValueFound() {
-        when(answerRepository.findById(answerId)).thenReturn(Optional.empty());
-        var updateAnswer = new UpdateAnswer(List.of());
+        when(answerRepository.findById(ANSWER_ID)).thenReturn(empty());
+        var updateAnswer = new UpdateAnswer(of());
 
-        var illegalStateException = Assertions.assertThrows(IllegalStateException.class, () -> updateAnswerFeature.update(answerId, updateAnswer));
+        var answerNotFound = assertThrows(AnswerNotFound.class, () -> updateAnswerFeature.update(ANSWER_ID, updateAnswer));
 
         var inOrder = inOrder(solutionRepository, answerRepository);
-        inOrder.verify(answerRepository).findById(answerId);
+        inOrder.verify(answerRepository).findById(ANSWER_ID);
         inOrder.verifyNoMoreInteractions();
-        assertEquals("Answer with id " + answerId + " not found", illegalStateException.getMessage());
+        assertEquals("Answer with id '" + ANSWER_ID + "' not found", answerNotFound.getDescription());
     }
 }

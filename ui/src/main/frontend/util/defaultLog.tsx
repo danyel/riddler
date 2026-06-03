@@ -25,33 +25,37 @@ class DefaultLog implements Log {
     }
 
     public debug(message: string, ...data: any[]) {
+        const logMessage = Strings.format(DefaultLog.TEMPLATE, [this.component, Strings.format(message, data)]);
         if (DefaultLog.DEBUG) {
-            console.log(Strings.format(DefaultLog.TEMPLATE, [this.component, Strings.format(message, data)]));
-            Logger.debug(Strings.format(DefaultLog.TEMPLATE, [this.component, message]), data)
-                .then()
-                .catch(err => Notify.error('Could not log the statement {}', err));
+            console.log(logMessage);
         }
+        Logger.debug(logMessage)
+            .then()
+            .catch(err => Notify.error('Could not log the statement {}', err));
     }
 
     public warn(message: string, ...data: any[]) {
+        const logMessage = Strings.format(DefaultLog.TEMPLATE, [this.component, Strings.format(message, data)]);
         if (DefaultLog.DEBUG) {
-            console.warn(Strings.format(DefaultLog.TEMPLATE, [this.component, Strings.format(message, data)]));
-            Logger.warn(Strings.format(DefaultLog.TEMPLATE, [this.component, message]), data)
-                .then()
-                .catch(err => Notify.error('Could not log the statement {}', err));
+            console.warn(logMessage);
         }
+        Logger.warn(logMessage)
+            .then()
+            .catch(err => Notify.error('Could not log the statement {}', err));
     }
 
     public info(message: string, ...data: any[]) {
-        console.info(Strings.format(DefaultLog.TEMPLATE, [this.component, Strings.format(message, data)]));
-        Logger.info(Strings.format(DefaultLog.TEMPLATE, [this.component, message]), data)
+        const logMessage = Strings.format(DefaultLog.TEMPLATE, [this.component, Strings.format(message, data)]);
+        console.info(logMessage);
+        Logger.info(logMessage)
             .then()
             .catch(err => Notify.error('Could not log the statement {}', err));
     }
 
     public error(message: string, ...data: any[]) {
-        console.error(Strings.format(DefaultLog.TEMPLATE, [this.component, Strings.format(message, data)]));
-        Logger.error(Strings.format(DefaultLog.TEMPLATE, [this.component, message]), data)
+        const logMessage = Strings.format(DefaultLog.TEMPLATE, [this.component, Strings.format(message, data)]);
+        console.error(logMessage);
+        Logger.error(logMessage)
             .then()
             .catch(err => Notify.error('Could not log the statement {}', err));
     }

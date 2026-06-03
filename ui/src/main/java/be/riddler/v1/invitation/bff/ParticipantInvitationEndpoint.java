@@ -1,7 +1,9 @@
 package be.riddler.v1.invitation.bff;
 
+import be.riddler.v1.answer.mapper.AnswerMapper;
+import be.riddler.v1.answer.repository.AnswerRepository;
+import be.riddler.v1.invitation.bff.model.ParticipantInvitationDetail;
 import be.riddler.v1.invitation.client.InvitationClient;
-import be.riddler.v1.invitation.client.model.Invitation;
 import be.riddler.v1.question.client.QuestionClient;
 import be.riddler.v1.question.client.model.Question;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
@@ -25,12 +27,20 @@ import java.util.UUID;
 public class ParticipantInvitationEndpoint {
     private final InvitationClient invitationClient;
     private final QuestionClient questionClient;
+    private final AnswerRepository answerRepository;
 
     public @NonNull List<@NonNull Question> findByIds(@NonNull List<@NonNull UUID> questionIds) {
         return questionClient.getQuestionsById(questionIds);
     }
 
-    public @NonNull Invitation findById(@NonNull UUID invitationId) {
-        return invitationClient.findById(invitationId);
+    public @NonNull ParticipantInvitationDetail findById(@NonNull UUID invitationId) {
+        var invitation = invitationClient.findById(invitationId);
+        var answers = answerRepository.findAllByInvitationId(invitationId);
+        return new ParticipantInvitationDetail(
+                invitation,
+                answers.stream()
+                        .map(AnswerMapper::fromAnswerEntity)
+                        .toList()
+        );
     }
 }

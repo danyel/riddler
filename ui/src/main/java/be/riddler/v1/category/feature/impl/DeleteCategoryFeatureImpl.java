@@ -24,6 +24,10 @@ class DeleteCategoryFeatureImpl implements DeleteCategoryFeature {
     @Transactional
     @Override
     public void delete(@NonNull UUID categoryId) {
-        categoryRepository.deleteById(categoryId);
+        if (categoryRepository.existsById(categoryId)) {
+            categoryRepository.deleteById(categoryId);
+        } else {
+            throw new CategoryNotFound(categoryId);
+        }
     }
 }

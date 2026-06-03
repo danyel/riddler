@@ -1,5 +1,6 @@
 package be.riddler.v1.answer.entity;
 
+import be.riddler.v1.common.entity.HasValue;
 import be.riddler.v1.common.entity.IdEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -13,6 +14,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.util.Objects;
 
 /**
  * SolutionEntity
@@ -29,7 +32,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Entity
 @Table(name = "answer_solutions")
-public class SolutionEntity extends IdEntity {
+public class SolutionEntity extends IdEntity implements HasValue<String> {
     private String value;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "answer_id", nullable = false)
@@ -37,4 +40,8 @@ public class SolutionEntity extends IdEntity {
     @EqualsAndHashCode.Exclude
     private AnswerEntity answer;
 
+    @Override
+    public boolean isSame(String value) {
+        return Objects.equals(this.value, value);
+    }
 }

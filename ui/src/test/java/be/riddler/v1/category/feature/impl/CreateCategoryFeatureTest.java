@@ -19,10 +19,13 @@ import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import static be.riddler.v1.fixture.Fixture.Category.categoryId;
-import static be.riddler.v1.fixture.Fixture.Keyword.keywordId;
+import static be.riddler.v1.category.mapper.CategoryMapper.fromCategoryEntity;
+import static be.riddler.v1.category.mapper.CategoryMapper.fromCreateCategory;
+import static be.riddler.v1.category.mapper.KeywordMapper.fromCreateKeyword;
+import static be.riddler.v1.fixture.Fixture.Category.CATEGORY_ID;
+import static be.riddler.v1.fixture.Fixture.Keyword.KEYWORD_ID;
+import static java.util.List.of;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.inOrder;
@@ -50,21 +53,21 @@ class CreateCategoryFeatureTest {
         try (MockedStatic<CategoryMapper> categoryMapper = mockStatic(CategoryMapper.class)) {
             try (MockedStatic<KeywordMapper> keywordMapper = mockStatic(KeywordMapper.class)) {
                 var createKeyword = new CreateKeyword("value");
-                var createCategory = new CreateCategory("name", List.of(createKeyword));
+                var createCategory = new CreateCategory("name", of(createKeyword));
                 var categoryEntity = new CategoryEntity();
                 var keywordEntity = new KeywordEntity();
 
-                categoryEntity.setId(categoryId);
+                categoryEntity.setId(CATEGORY_ID);
                 categoryEntity.setKeywords(new ArrayList<>());
                 keywordEntity.setWord("value");
-                keywordEntity.setId(keywordId);
+                keywordEntity.setId(KEYWORD_ID);
                 keywordEntity.setCategory(categoryEntity);
-                categoryMapper.when(() -> CategoryMapper.fromCreateCategory(eq(createCategory)))
+                categoryMapper.when(() -> fromCreateCategory(eq(createCategory)))
                         .thenReturn(categoryEntity);
-                keywordMapper.when(() -> KeywordMapper.fromCreateKeyword(eq(createKeyword)))
+                keywordMapper.when(() -> fromCreateKeyword(eq(createKeyword)))
                         .thenReturn(keywordEntity);
-                categoryMapper.when(() -> CategoryMapper.fromCategoryEntity(eq(categoryEntity)))
-                        .thenReturn(new Category(categoryEntity.getId(), categoryEntity.getName(), List.of(new Keyword(keywordEntity.getId(), keywordEntity.getWord()))));
+                categoryMapper.when(() -> fromCategoryEntity(eq(categoryEntity)))
+                        .thenReturn(new Category(categoryEntity.getId(), categoryEntity.getName(), of(new Keyword(keywordEntity.getId(), keywordEntity.getWord()))));
 
                 var result = ut.create(createCategory);
 

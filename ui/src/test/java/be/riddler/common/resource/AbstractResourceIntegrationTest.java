@@ -1,9 +1,7 @@
 package be.riddler.common.resource;
 
 import be.riddler.configuration.TestcontainersConfiguration;
-import be.riddler.configuration.filter.JwtAuthenticationFilter;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,14 +14,23 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import tools.jackson.databind.ObjectMapper;
 
-import java.time.Instant;
 import java.util.Base64;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
+import static be.riddler.common.header.Headers.X_CORRELATION_ID;
+import static be.riddler.configuration.filter.JwtAuthenticationFilter.JWT_HEADER_AND_PAYLOAD;
+import static be.riddler.configuration.filter.JwtAuthenticationFilter.JWT_SIGNATURE;
+import static io.jsonwebtoken.Jwts.builder;
+import static io.jsonwebtoken.security.Keys.hmacShaKeyFor;
+import static java.time.Instant.now;
+import static java.util.Base64.getDecoder;
+import static java.util.Date.from;
+import static java.util.List.of;
+import static java.util.UUID.randomUUID;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
  * AbstractResourceTest
@@ -37,7 +44,8 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @Import({TestcontainersConfiguration.class})
 public abstract class AbstractResourceIntegrationTest {
     @Autowired
-    protected WebTestClient webTestClient;
+    @Getter
+    private WebTestClient webTestClient;
 
     @Autowired
     protected ObjectMapper objectMapper;
@@ -48,31 +56,49 @@ public abstract class AbstractResourceIntegrationTest {
 
     @BeforeEach
     void setUp() {
-        var secretKey = Keys.hmacShaKeyFor(Base64.getDecoder().decode(authSecret));
-        var fullToken = Jwts.builder()
+        var secretKey = hmacShaKeyFor(getDecoder().decode(authSecret));
+        var oneHourInSeconds = 3600;
+        var fullToken = builder()
                 .subject("test-user")
-                .claim("roles", List.of("ROLE_USER"))
-                .expiration(Date.from(Instant.now().plusSeconds(3600)))
+                .claim("roles", of("ROLE_USER"))
+                .expiration(from(now().plusSeconds(oneHourInSeconds)))
                 .signWith(secretKey)
                 .compact();
-
         var lastPeriodIndex = fullToken.lastIndexOf('.');
         var headerAndPayload = fullToken.substring(0, lastPeriodIndex);
         var signature = fullToken.substring(lastPeriodIndex + 1);
-        cookies.put(JwtAuthenticationFilter.JWT_HEADER_AND_PAYLOAD, headerAndPayload);
-        cookies.put(JwtAuthenticationFilter.JWT_SIGNATURE, signature);
+
+        cookies.put(JWT_HEADER_AND_PAYLOAD, headerAndPayload);
+        cookies.put(JWT_SIGNATURE, signature);
+    }
+
+    protected WebTestClient.ResponseSpec doExchange(WebTestClient.RequestHeadersSpec<?> uriSpec) {
+        return uriSpec.accept(APPLICATION_JSON)
+                .header(X_CORRELATION_ID, correlationId())
+                .accept(APPLICATION_JSON)
+                .cookie(JWT_SIGNATURE, jwtSignature())
+                .cookie(JWT_HEADER_AND_PAYLOAD, jwtHeaderAndPayload())
+                .exchange();
     }
 
     protected String jwtSignature() {
-        return cookies.get(JwtAuthenticationFilter.JWT_SIGNATURE);
+        return cookies.get(JWT_SIGNATURE);
     }
 
     protected String jwtHeaderAndPayload() {
-        return cookies.get(JwtAuthenticationFilter.JWT_HEADER_AND_PAYLOAD);
+        return cookies.get(JWT_HEADER_AND_PAYLOAD);
     }
 
-    protected String xAuthenticationContent() {
-        var authentication = new UsernamePasswordAuthenticationToken("username", "password", List.of((GrantedAuthority) () -> "AMDIN"));
+    protected String correlationId() {
+        return newId().toString();
+    }
+
+    protected UUID newId() {
+        return randomUUID();
+    }
+
+    protected String authenticationContent() {
+        var authentication = new UsernamePasswordAuthenticationToken("username", "password", of((GrantedAuthority) () -> "AMDIN"));
         var authenticationBytes = objectMapper.writeValueAsBytes(authentication);
         return Base64.getEncoder().encodeToString(authenticationBytes);
     }

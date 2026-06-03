@@ -1,9 +1,11 @@
 package be.riddler.v1.answer.api;
 
 import be.riddler.common.resource.AbstractResourceIntegrationTest;
-import be.riddler.v1.fixture.Fixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import static be.riddler.v1.answer.api.AnswerResource.BASE;
+import static be.riddler.v1.fixture.Fixture.Question.DB_ID;
 
 /**
  * AnswerResourceTest
@@ -16,9 +18,8 @@ class AnswerResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Test
     void findByQuestionId() {
-        webTestClient.get()
-                .uri("%s/question/%s".formatted(AnswerResource.BASE, Fixture.Question.dbId))
-                .exchange()
+        doExchange(getWebTestClient().get()
+                .uri("%s/question/%s".formatted(BASE, DB_ID)))
                 .expectStatus()
                 .isOk()
                 .expectBody()

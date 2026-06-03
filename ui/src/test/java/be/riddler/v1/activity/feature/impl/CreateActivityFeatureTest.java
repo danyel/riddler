@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.UUID;
 
-import static be.riddler.v1.fixture.Fixture.Question.questionId;
+import static be.riddler.v1.fixture.Fixture.Question.QUESTION_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mockStatic;
@@ -43,7 +43,7 @@ class CreateActivityFeatureTest {
     void create() {
         try (MockedStatic<ActivityMapper> activityMapper = mockStatic(ActivityMapper.class)) {
             var instant = LocalDateTime.now().toInstant(ZoneOffset.UTC);
-            var createActivity = new CreateActivity(questionId, "action", "element", instant, "nothing");
+            var createActivity = new CreateActivity(QUESTION_ID, "action", "element", instant, "nothing");
             var activityEntity = ActivityEntity.builder()
                     .actionType(createActivity.actionType())
                     .questionId(createActivity.questionId())
@@ -59,7 +59,7 @@ class CreateActivityFeatureTest {
 
             verify(activityRepository).save(eq(activityEntity));
             verifyNoMoreInteractions(activityRepository);
-            assertEquals(questionId, activityEntity.getQuestionId());
+            assertEquals(QUESTION_ID, activityEntity.getQuestionId());
             assertEquals("action", activityEntity.getActionType());
             assertEquals("nothing", activityEntity.getAdditionalData());
             assertEquals("element", activityEntity.getElementId());

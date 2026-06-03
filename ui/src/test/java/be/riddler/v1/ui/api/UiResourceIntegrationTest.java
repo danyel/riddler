@@ -15,10 +15,8 @@ class UiResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Test
     void icons() {
-        webTestClient.get()
-                .uri("/v1/ui/icons")
-                .header("X-Authorization", xAuthenticationContent())
-                .exchange()
+        doExchange(getWebTestClient().get()
+                .uri("/v1/ui/icons"))
                 .expectStatus()
                 .isOk()
                 .expectBody()
@@ -28,6 +26,6 @@ class UiResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Test
     void name() {
-        System.out.println(xAuthenticationContent());
+        System.out.println(authenticationContent());
     }
 }

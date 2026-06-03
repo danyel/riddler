@@ -9,6 +9,8 @@ import CreateAnswer from "Frontend/generated/be/riddler/v1/answer/client/model/C
 import CreateSolution from "Frontend/generated/be/riddler/v1/answer/client/model/CreateSolution";
 import {useParams} from "react-router-dom";
 import {useSignal} from "@vaadin/hilla-react-signals";
+import ParticipantInvitationDetail
+    from "Frontend/generated/be/riddler/v1/invitation/bff/model/ParticipantInvitationDetail";
 
 interface ReviewComment {
     id: string;
@@ -47,9 +49,9 @@ export default function InterviewWizardView() {
     useEffect(() => {
         if (!invitationId) return;
         ParticipantInvitationEndpoint.findById(invitationId)
-            .then((invitation: Invitation) => {
-                setInvitation(invitation);
-                return ParticipantInvitationEndpoint.findByIds(invitation.questions);
+            .then((participantInvitationDetail: ParticipantInvitationDetail) => {
+                setInvitation(participantInvitationDetail.invitation);
+                return ParticipantInvitationEndpoint.findByIds(participantInvitationDetail.invitation.questions);
             })
             .then((questionDetails) => {
                 if (questionDetails) {
@@ -104,6 +106,7 @@ export default function InterviewWizardView() {
 
             const payload: CreateAnswer = {
                 solutions: solutionRecords,
+                invitation_id: invitation.id,
                 question_id: currentQuestion.id
             };
 
@@ -121,7 +124,7 @@ export default function InterviewWizardView() {
                 setCurrentIndex(prev => prev + 1);
             }
         } catch (err) {
-            console.error("Failed to commit answer payload context:", err);
+            LOGGER.error("Failed to commit answer payload context: {}", err);
         } finally {
             setSubmitting(false);
         }

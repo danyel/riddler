@@ -1,6 +1,7 @@
 package be.riddler.v1.category.entity;
 
 import be.riddler.v1.common.entity.BaseEntity;
+import be.riddler.v1.common.entity.HasValue;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +16,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * CategoryEntity
@@ -29,10 +31,15 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "categories")
-public class CategoryEntity extends BaseEntity {
+public class CategoryEntity extends BaseEntity implements HasValue<String> {
     @Column(unique = true, nullable = false)
     private String name;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<KeywordEntity> keywords = new ArrayList<>();
+
+    @Override
+    public boolean isSame(String name) {
+        return Objects.equals(name, this.name);
+    }
 }

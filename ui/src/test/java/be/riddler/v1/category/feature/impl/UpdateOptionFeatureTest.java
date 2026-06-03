@@ -12,7 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static be.riddler.v1.fixture.Fixture.Option.optionId;
+import static be.riddler.v1.fixture.Fixture.Option.OPTION_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.eq;
@@ -48,15 +48,15 @@ class UpdateOptionFeatureTest {
     @Test
     void updateOption() {
         var optionEntity = mock(OptionEntity.class);
-        when(optionEntity.getId()).thenReturn(optionId);
+        when(optionEntity.getId()).thenReturn(OPTION_ID);
         when(optionEntity.getValue()).thenReturn("value");
-        when(optionRepository.findById(eq(optionId))).thenReturn(Optional.of(optionEntity));
+        when(optionRepository.findById(eq(OPTION_ID))).thenReturn(Optional.of(optionEntity));
 
-        var updateOption = new UpdateOption(optionId, "value");
+        var updateOption = new UpdateOption(OPTION_ID, "value");
         var option = ut.updateOption(updateOption);
 
         var inOrder = inOrder(optionRepository, optionEntity);
-        inOrder.verify(optionRepository).findById(eq(optionId));
+        inOrder.verify(optionRepository).findById(eq(OPTION_ID));
         inOrder.verify(optionEntity).setValue("value");
         inOrder.verify(optionRepository).save(optionEntity);
         //noinspection ResultOfMethodCallIgnored
@@ -66,7 +66,7 @@ class UpdateOptionFeatureTest {
         inOrder.verifyNoMoreInteractions();
 
         assertEquals("value", option.value());
-        assertEquals(optionId, option.id());
+        assertEquals(OPTION_ID, option.id());
     }
 
 
@@ -82,11 +82,11 @@ class UpdateOptionFeatureTest {
     @DisplayName("Given an invalid option id when updating the option then illegal state exception will be thrown")
     @Test
     void updateOptionThrowsException() {
-        when(optionRepository.findById(optionId)).thenReturn(Optional.empty());
-        var updateOption = new UpdateOption(optionId, "value");
+        when(optionRepository.findById(OPTION_ID)).thenReturn(Optional.empty());
+        var updateOption = new UpdateOption(OPTION_ID, "value");
 
         var illegalStateException = assertThrows(IllegalStateException.class, () -> ut.updateOption(updateOption));
 
-        assertEquals("Option with id %s not found".formatted(optionId), illegalStateException.getMessage());
+        assertEquals("Option with id %s not found".formatted(OPTION_ID), illegalStateException.getMessage());
     }
 }

@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
-import static be.riddler.v1.fixture.Fixture.Category.categoryId;
-import static be.riddler.v1.fixture.Fixture.Question.questionId;
+import static be.riddler.v1.fixture.Fixture.Category.CATEGORY_ID;
+import static be.riddler.v1.fixture.Fixture.Question.QUESTION_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -24,10 +24,10 @@ class ActivityMapperTest {
 
     @Test
     void fromCreateActivity() {
-        var activityEntity = ActivityMapper.fromCreateActivity(new CreateActivity(questionId, "action", "element", LocalDateTime.now().toInstant(ZoneOffset.UTC), "additional data"));
+        var activityEntity = ActivityMapper.fromCreateActivity(new CreateActivity(QUESTION_ID, "action", "element", LocalDateTime.now().toInstant(ZoneOffset.UTC), "additional data"));
 
         assertNotNull(activityEntity);
-        assertEquals(questionId, activityEntity.getQuestionId());
+        assertEquals(QUESTION_ID, activityEntity.getQuestionId());
         assertEquals("element", activityEntity.getElementId());
         assertEquals("action", activityEntity.getActionType());
         assertEquals("additional data", activityEntity.getAdditionalData());
@@ -36,9 +36,9 @@ class ActivityMapperTest {
     @Test
     void fromActivityEntity() {
         var activityDetail = ActivityMapper.fromActivityEntity(ActivityEntity.builder()
-                .id(categoryId)
+                .id(CATEGORY_ID)
                 .elementId("elementId")
-                .questionId(questionId)
+                .questionId(QUESTION_ID)
                 .additionalData("additionalData")
                 .actionType("action")
                 .build());
@@ -46,8 +46,8 @@ class ActivityMapperTest {
         assertEquals("elementId", activityDetail.elementId());
         assertEquals("action", activityDetail.actionType());
         assertEquals("additionalData", activityDetail.additionalData());
-        assertEquals(questionId, activityDetail.questionId());
-        assertEquals(categoryId, activityDetail.id());
+        assertEquals(QUESTION_ID, activityDetail.questionId());
+        assertEquals(CATEGORY_ID, activityDetail.id());
 
     }
 }

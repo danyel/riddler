@@ -3,12 +3,10 @@ package be.riddler.v1.invitation.mapper;
 import be.riddler.v1.invitation.client.model.CreateInvitation;
 import be.riddler.v1.invitation.client.model.Invitation;
 import be.riddler.v1.invitation.entity.InvitationEntity;
-import be.riddler.v1.invitation.entity.InvitationQuestionEntity;
 import be.riddler.v1.publication.mapper.PublicationMapper;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -24,7 +22,7 @@ public class InvitationMapper {
     }
 
     public static Invitation fromInvitationEntity(InvitationEntity invitationEntity) {
-        List<UUID> safeQuestions = Objects.requireNonNullElse(invitationEntity.getQuestions(), List.<InvitationQuestionEntity>of())
+        List<UUID> safeQuestions = invitationEntity.getQuestions()
                 .stream()
                 .map(e -> e.getId().questionId())
                 .toList();

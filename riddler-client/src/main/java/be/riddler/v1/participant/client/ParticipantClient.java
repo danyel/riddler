@@ -1,5 +1,6 @@
 package be.riddler.v1.participant.client;
 
+import be.riddler.common.header.Headers;
 import be.riddler.v1.participant.client.model.CreateParticipant;
 import be.riddler.v1.participant.client.model.Participant;
 import io.swagger.v3.oas.annotations.Operation;
@@ -39,7 +40,7 @@ public interface ParticipantClient {
             operationId = "findById",
             parameters = {
                     @Parameter(name = "id", schema = @Schema(implementation = UUID.class)),
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -68,7 +69,7 @@ public interface ParticipantClient {
             summary = "Retrieve all participants",
             operationId = "findAll",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -97,7 +98,7 @@ public interface ParticipantClient {
             operationId = "create",
             summary = "Creates a participant",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(schema = @Schema(implementation = CreateParticipant.class), mediaType = MediaType.APPLICATION_JSON_VALUE, encoding = @Encoding(contentType = MediaType.APPLICATION_JSON_VALUE))

@@ -21,6 +21,6 @@ class AnswerRepositoryIntegrationTest extends AbstractRepositoryIntegrationTest 
 
     @Test
     void findAllByQuestionId() {
-        assertEquals(3, answerRepository.findAllByQuestionId(Fixture.Question.dbId).size());
+        assertEquals(3, answerRepository.findAllByQuestionId(Fixture.Question.DB_ID).size());
     }
 }

@@ -25,9 +25,10 @@ import static lombok.AccessLevel.PACKAGE;
  * @version 1.0.0 18/05/2026
  */
 @RestController
-@RequestMapping(path = "/categories")
+@RequestMapping(path = CategoryResource.BASE)
 @RequiredArgsConstructor(access = PACKAGE)
 class CategoryResource implements CategoryClient {
+    public static final String BASE = "/v1/categories";
     private final DeleteCategoryFeature deleteCategoryFeature;
     private final CreateCategoryFeature createCategoryFeature;
     private final FindAllCategoriesFeature findAllCategoriesFeature;

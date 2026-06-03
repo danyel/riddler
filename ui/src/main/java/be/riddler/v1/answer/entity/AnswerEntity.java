@@ -38,6 +38,7 @@ import java.util.UUID;
 @Table(name = "answers")
 public class AnswerEntity extends IdEntity {
     private UUID questionId;
+    private UUID invitationId;
     @CreatedDate
     private LocalDateTime createdAt;
     @LastModifiedDate

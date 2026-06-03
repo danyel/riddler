@@ -20,9 +20,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static be.riddler.v1.fixture.Fixture.Answer.answerId;
-import static be.riddler.v1.fixture.Fixture.Question.questionId;
-import static be.riddler.v1.fixture.Fixture.Solution.solutionEntity;
+import static be.riddler.v1.fixture.Fixture.Answer.ANSWER_ID;
+import static be.riddler.v1.fixture.Fixture.Invitation.INVITATION_ID;
+import static be.riddler.v1.fixture.Fixture.Question.QUESTION_ID;
+import static be.riddler.v1.fixture.Fixture.Solution.SOLUTION_ENTITY;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mockStatic;
@@ -57,21 +58,21 @@ class CreateAnswerFeatureTest {
     void create() {
         try (MockedStatic<AnswerMapper> answerMapper = mockStatic(AnswerMapper.class)) {
             try (MockedStatic<SolutionMapper> solutionMapper = mockStatic(SolutionMapper.class)) {
-                var createAnswer = new CreateAnswer(List.of(new CreateSolution("value")), questionId);
+                var createAnswer = new CreateAnswer(List.of(new CreateSolution("value")), QUESTION_ID, INVITATION_ID);
                 var answerEntity = AnswerEntity.builder()
-                        .questionId(questionId)
+                        .questionId(QUESTION_ID)
                         .build();
                 answerMapper.when(() -> AnswerMapper.fromCreateAnswer(eq(createAnswer))).thenReturn(answerEntity);
                 solutionMapper.when(() -> SolutionMapper.fromCreateSolutionToEntity(eq(new CreateSolution("value")), eq(answerEntity)))
-                        .thenReturn(solutionEntity);
-                answerMapper.when(() -> AnswerMapper.fromAnswerEntity(eq(Fixture.Answer.answerEntity)))
-                        .thenReturn(new Answer(answerId, List.of(new Solution(solutionEntity.getId(), solutionEntity.getValue())), questionId));
+                        .thenReturn(SOLUTION_ENTITY);
+                answerMapper.when(() -> AnswerMapper.fromAnswerEntity(eq(Fixture.Answer.ANSWER_ENTITY)))
+                        .thenReturn(new Answer(ANSWER_ID, INVITATION_ID, List.of(new Solution(SOLUTION_ENTITY.getId(), SOLUTION_ENTITY.getValue())), QUESTION_ID));
 
                 ut.create(createAnswer);
 
                 var inOrder = inOrder(solutionRepository, answerRepository);
                 inOrder.verify(answerRepository).save(answerEntity);
-                inOrder.verify(solutionRepository).save(solutionEntity);
+                inOrder.verify(solutionRepository).save(SOLUTION_ENTITY);
                 inOrder.verify(answerRepository).save(answerEntity);
                 inOrder.verifyNoMoreInteractions();
             }

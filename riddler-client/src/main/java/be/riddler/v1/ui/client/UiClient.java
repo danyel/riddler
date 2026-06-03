@@ -1,5 +1,6 @@
 package be.riddler.v1.ui.client;
 
+import be.riddler.common.header.Headers;
 import be.riddler.v1.ui.client.model.Translation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -33,7 +34,7 @@ public interface UiClient {
             summary = "Retrieves all possible icon names",
             operationId = "icons",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -56,7 +57,7 @@ public interface UiClient {
             summary = "Retrieves all supported languages",
             operationId = "supportedLanguages",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -79,7 +80,7 @@ public interface UiClient {
             summary = "Retrieves all question types",
             operationId = "questionTypes",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -102,7 +103,7 @@ public interface UiClient {
             summary = "Retrieves translations for a specific language",
             operationId = "translations",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(in = ParameterIn.QUERY, name = "language", schema = @Schema(implementation = String.class))
             },
             responses = {
@@ -126,7 +127,7 @@ public interface UiClient {
             summary = "Retrieves translations for a specific language",
             operationId = "translate",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(in = ParameterIn.QUERY, name = "language", schema = @Schema(implementation = String.class)),
                     @Parameter(in = ParameterIn.QUERY, name = "key", schema = @Schema(implementation = String.class))
             },

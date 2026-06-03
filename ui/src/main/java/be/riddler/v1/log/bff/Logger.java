@@ -19,21 +19,21 @@ public class Logger {
         return LOGGER.isDebugEnabled();
     }
 
-    public void debug(@NonNull String message, Object... args) {
+    public void debug(@NonNull String message) {
         if (LOGGER.isDebugEnabled()) {
-            LOGGER.debug(message, args);
+            LOGGER.debug(message);
         }
     }
 
-    public void info(@NonNull String message, Object... args) {
-        LOGGER.info(message, args);
+    public void info(@NonNull String message) {
+        LOGGER.info(message);
     }
 
-    public void error(@NonNull String message, Object... args) {
-        LOGGER.error(message, args);
+    public void error(@NonNull String message) {
+        LOGGER.error(message);
     }
 
-    public void warn(@NonNull String message, Object... args) {
-        LOGGER.warn(message, args);
+    public void warn(@NonNull String message) {
+        LOGGER.warn(message);
     }
 }

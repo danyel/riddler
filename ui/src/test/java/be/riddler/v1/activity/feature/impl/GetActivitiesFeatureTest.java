@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
-import static be.riddler.v1.fixture.Fixture.Question.questionId;
+import static be.riddler.v1.fixture.Fixture.Question.QUESTION_ID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.mockStatic;
@@ -52,12 +52,12 @@ class GetActivitiesFeatureTest {
             activityMapper.when(() -> ActivityMapper.fromActivityEntity(firstActivity)).thenReturn(mock(ActivityDetail.class));
             activityMapper.when(() -> ActivityMapper.fromActivityEntity(secondActivity)).thenReturn(mock(ActivityDetail.class));
             activityMapper.when(() -> ActivityMapper.fromActivityEntity(thirdActivity)).thenReturn(mock(ActivityDetail.class));
-            when(activityRepository.findAllByCreatedByAndQuestionId("username", questionId)).thenReturn(List.of(firstActivity, secondActivity, thirdActivity));
+            when(activityRepository.findAllByCreatedByAndQuestionId("username", QUESTION_ID)).thenReturn(List.of(firstActivity, secondActivity, thirdActivity));
 
-            var activities = ut.getActivities(new GetActivities(questionId, "username"));
+            var activities = ut.getActivities(new GetActivities(QUESTION_ID, "username"));
 
             assertThat(activities).hasSize(3);
-            verify(activityRepository).findAllByCreatedByAndQuestionId("username", questionId);
+            verify(activityRepository).findAllByCreatedByAndQuestionId("username", QUESTION_ID);
         }
     }
 }

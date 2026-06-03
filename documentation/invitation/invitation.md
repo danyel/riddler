@@ -29,7 +29,7 @@ public interface InvitationClient {
             operationId = "create",
             summary = "Creates an invitation",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(schema = @Schema(implementation = CreateInvitation.class), mediaType = MediaType.APPLICATION_JSON_VALUE, encoding = @Encoding(contentType = MediaType.APPLICATION_JSON_VALUE))
@@ -120,7 +120,7 @@ public interface InvitationClient {
             operationId = "update",
             summary = "Updates an invitation",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(name = "id", in = ParameterIn.PATH, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -184,7 +184,7 @@ public interface InvitationClient {
             summary = "Retrieve the invitation corresponding to the id",
             operationId = "findById",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -264,7 +264,7 @@ public interface InvitationClient {
             summary = "Retrieves the invitations corresponding to the participant id",
             operationId = "findInvitationsByParticipantId",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -346,7 +346,7 @@ public interface InvitationClient {
             summary = "Deletes the invitation corresponding to the id",
             operationId = "deleteById",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -384,7 +384,7 @@ public interface InvitationClient {
             summary = "Generates a token",
             operationId = "generateToken",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(name = "id", in = ParameterIn.PATH, schema = @Schema(implementation = UUID.class))
             },
             responses = {

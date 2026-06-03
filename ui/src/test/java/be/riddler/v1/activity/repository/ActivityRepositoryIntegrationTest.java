@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.Instant;
 import java.time.LocalDateTime;
 
-import static be.riddler.v1.fixture.Fixture.Question.dbId;
+import static be.riddler.v1.fixture.Fixture.Question.DB_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -30,7 +30,7 @@ class ActivityRepositoryIntegrationTest extends AbstractRepositoryIntegrationTes
     void setUp() {
         activityRepository.save(
                 ActivityEntity.builder()
-                        .questionId(dbId)
+                        .questionId(DB_ID)
                         .elementId("elementId")
                         .additionalData("additionalData")
                         .timestamp(Instant.now())
@@ -45,7 +45,7 @@ class ActivityRepositoryIntegrationTest extends AbstractRepositoryIntegrationTes
 
     @Test
     void findAllByCreatedByAndQuestionId() {
-        var activities = activityRepository.findAllByCreatedByAndQuestionId("user", dbId);
+        var activities = activityRepository.findAllByCreatedByAndQuestionId("user", DB_ID);
         assertNotNull(activities);
         assertFalse(activities.isEmpty());
         assertEquals(1, activities.size());

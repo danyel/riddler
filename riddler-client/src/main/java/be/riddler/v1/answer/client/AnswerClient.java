@@ -1,5 +1,6 @@
 package be.riddler.v1.answer.client;
 
+import be.riddler.common.header.Headers;
 import be.riddler.v1.answer.client.model.Answer;
 import be.riddler.v1.answer.client.model.CreateAnswer;
 import be.riddler.v1.answer.client.model.UpdateAnswer;
@@ -40,7 +41,7 @@ public interface AnswerClient {
             summary = "Retrieves the question by id",
             operationId = "findByQuestion",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -67,7 +68,7 @@ public interface AnswerClient {
             summary = "Creates an answer",
             operationId = "create",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = {@Content(schema = @Schema(implementation = CreateAnswer.class), mediaType = MediaType.APPLICATION_JSON_VALUE)}
@@ -93,7 +94,7 @@ public interface AnswerClient {
             summary = "Updates an answer by answer id",
             operationId = "update",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = {@Content(schema = @Schema(implementation = UpdateAnswer.class), mediaType = MediaType.APPLICATION_JSON_VALUE)}

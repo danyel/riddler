@@ -15,6 +15,7 @@ import java.util.UUID;
  */
 public record CreateAnswer(
         @NonNull @Valid List<@NonNull CreateSolution> solutions,
-        @NonNull @Valid @JsonProperty(value = "question_id") UUID questionId
+        @NonNull @Valid @JsonProperty(value = "question_id") UUID questionId,
+        @NonNull @Valid @JsonProperty(value = "invitation_id") UUID invitationId
 ) {
 }

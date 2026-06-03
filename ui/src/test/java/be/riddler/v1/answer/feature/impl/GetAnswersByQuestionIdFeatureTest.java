@@ -10,9 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.List;
 import java.util.UUID;
 
+import static java.util.List.of;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -42,7 +42,15 @@ class GetAnswersByQuestionIdFeatureTest {
     @DisplayName("Given a valid question id when fetching answers for the question id then 2 answers will be returned")
     @Test
     void findById() {
-        when(answerRepository.findAllByQuestionId(questionId)).thenReturn(List.of(AnswerEntity.builder().questionId(questionId).build(), AnswerEntity.builder().questionId(questionId).build()));
+        when(answerRepository.findAllByQuestionId(questionId)).thenReturn(of(
+                        AnswerEntity.builder()
+                                .questionId(questionId)
+                                .build(),
+                        AnswerEntity.builder()
+                                .questionId(questionId)
+                                .build()
+                )
+        );
 
         var answers = ut.byQuestionId(new QuestionId(questionId));
 
@@ -60,7 +68,7 @@ class GetAnswersByQuestionIdFeatureTest {
     @DisplayName("Given a question id when fetching the answers then an empty list will be returned")
     @Test
     void findByIdNothingFound() {
-        when(answerRepository.findAllByQuestionId(questionId)).thenReturn(List.of());
+        when(answerRepository.findAllByQuestionId(questionId)).thenReturn(of());
 
         var answers = ut.byQuestionId(new QuestionId(questionId));
 

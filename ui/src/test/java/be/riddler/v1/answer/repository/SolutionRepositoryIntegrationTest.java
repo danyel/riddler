@@ -3,6 +3,7 @@ package be.riddler.v1.answer.repository;
 import be.riddler.common.repository.AbstractRepositoryIntegrationTest;
 import be.riddler.v1.answer.entity.AnswerEntity;
 import be.riddler.v1.answer.entity.SolutionEntity;
+import be.riddler.v1.fixture.Fixture;
 import be.riddler.v1.question.client.model.QuestionType;
 import be.riddler.v1.question.entity.QuestionEntity;
 import be.riddler.v1.question.repository.QuestionRepository;
@@ -40,6 +41,7 @@ class SolutionRepositoryIntegrationTest extends AbstractRepositoryIntegrationTes
                 .build());
         var answerEntity = answerRepository.save(AnswerEntity.builder()
                 .questionId(questionEntity.getId())
+                .invitationId(Fixture.Invitation.DB_ID)
                 .build());
         var solutionEntity = solutionRepository.save(SolutionEntity.builder()
                 .value("value")
@@ -67,6 +69,7 @@ class SolutionRepositoryIntegrationTest extends AbstractRepositoryIntegrationTes
                 .build());
         var answerEntity = answerRepository.save(AnswerEntity.builder()
                 .questionId(questionEntity.getId())
+                .invitationId(Fixture.Invitation.DB_ID)
                 .build());
         var solutionEntity = solutionRepository.save(SolutionEntity.builder()
                 .value("value")

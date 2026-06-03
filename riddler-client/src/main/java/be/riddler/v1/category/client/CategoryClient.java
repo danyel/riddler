@@ -1,5 +1,6 @@
 package be.riddler.v1.category.client;
 
+import be.riddler.common.header.Headers;
 import be.riddler.v1.category.client.model.Category;
 import be.riddler.v1.category.client.model.CreateCategory;
 import be.riddler.v1.category.client.model.UpdateCategory;
@@ -42,7 +43,7 @@ public interface CategoryClient {
             summary = "Retrieves the categories",
             operationId = "findAll",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -65,14 +66,14 @@ public interface CategoryClient {
             summary = "Creates a category",
             operationId = "create",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = {@Content(schema = @Schema(implementation = CreateCategory.class), mediaType = MediaType.APPLICATION_JSON_VALUE)}
             ),
             responses = {
                     @ApiResponse(
-                            responseCode = "200",
+                            responseCode = "201",
                             content = @Content(array = @ArraySchema(schema = @Schema(implementation = Category.class)))
                     ),
                     @ApiResponse(
@@ -86,7 +87,7 @@ public interface CategoryClient {
             }
     )
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @NonNull Category create(@NonNull @RequestBody CreateCategory createCategory);
 
     @Operation(
@@ -95,7 +96,7 @@ public interface CategoryClient {
             summary = "Deletes a category by category id",
             operationId = "delete",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -120,7 +121,7 @@ public interface CategoryClient {
             tags = TAG,
             summary = "Updates a category by category id",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             operationId = "update",
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
@@ -141,6 +142,6 @@ public interface CategoryClient {
             }
     )
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     @NonNull Category update(@NonNull @PathVariable(name = "id") UUID categoryId, @RequestBody @NonNull UpdateCategory updateCategory);
 }

@@ -1,7 +1,6 @@
-package be.riddler.v1.menu.adapter.repository;
+package be.riddler.v1.menu.repository;
 
 import be.riddler.common.repository.AbstractRepositoryIntegrationTest;
-import be.riddler.v1.menu.repository.MenuRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

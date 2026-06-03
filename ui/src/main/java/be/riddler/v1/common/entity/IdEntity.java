@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -32,4 +33,8 @@ public abstract class IdEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    public boolean isSameId(UUID value) {
+        return Objects.equals(id, value);
+    }
 }

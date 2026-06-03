@@ -1,5 +1,6 @@
 package be.riddler.v1.publication.client;
 
+import be.riddler.common.header.Headers;
 import be.riddler.v1.publication.client.model.CreateLevel;
 import be.riddler.v1.publication.client.model.CreatePosition;
 import be.riddler.v1.publication.client.model.CreatePublication;
@@ -44,7 +45,7 @@ public interface PublicationClient {
             summary = "Retrieves all publication",
             operationId = "getPublications",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             responses = {
                     @ApiResponse(
@@ -74,7 +75,7 @@ public interface PublicationClient {
             summary = "Retrieve the publication by id",
             operationId = "findById",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(name = "id", schema = @Schema(implementation = UUID.class))
             },
             responses = {
@@ -104,7 +105,7 @@ public interface PublicationClient {
             operationId = "createPublication",
             summary = "Creates a publication",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(schema = @Schema(
@@ -149,7 +150,7 @@ public interface PublicationClient {
             operationId = "createPosition",
             summary = "Creates a positions",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(schema = @Schema(
@@ -194,7 +195,7 @@ public interface PublicationClient {
             summary = "Retrieve the position by id",
             operationId = "findPositionById",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(name = "id", schema = @Schema(implementation = UUID.class))
             },
             responses = {
@@ -224,7 +225,7 @@ public interface PublicationClient {
             summary = "Retrieves all positions",
             operationId = "findAllPositions",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(name = "id", schema = @Schema(implementation = UUID.class))
             },
             responses = {
@@ -254,7 +255,7 @@ public interface PublicationClient {
             operationId = "createLevel",
             summary = "Creates a level",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
             },
             requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
                     content = @Content(schema = @Schema(
@@ -299,7 +300,7 @@ public interface PublicationClient {
             summary = "Retrieve the level by id",
             operationId = "findLevelById",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(name = "id", schema = @Schema(implementation = UUID.class))
             },
             responses = {
@@ -329,7 +330,7 @@ public interface PublicationClient {
             summary = "Retrieves levels",
             operationId = "findAllLevels",
             parameters = {
-                    @Parameter(name = "X-Correlation-Id", in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
                     @Parameter(name = "id", schema = @Schema(implementation = UUID.class))
             },
             responses = {

@@ -1,6 +1,7 @@
 package be.riddler.v1.category.entity;
 
 
+import be.riddler.v1.common.entity.HasValue;
 import be.riddler.v1.common.entity.IdEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +14,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+
+import java.util.Objects;
 
 /**
  * KeywordEntity
@@ -27,7 +30,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Entity
 @Table(name = "category_keywords")
-public class KeywordEntity extends IdEntity {
+public class KeywordEntity extends IdEntity implements HasValue<String> {
 
     @Column(nullable = false)
     private String word;
@@ -35,4 +38,9 @@ public class KeywordEntity extends IdEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private CategoryEntity category;
+
+    @Override
+    public boolean isSame(String value) {
+        return Objects.equals(word, value);
+    }
 }
