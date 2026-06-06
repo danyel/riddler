@@ -1,14 +1,13 @@
 package be.riddler.v1.category.feature.impl;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.question.client.model.UpdateOption;
 import be.riddler.v1.question.entity.OptionEntity;
 import be.riddler.v1.question.repository.OptionRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
@@ -27,8 +26,7 @@ import static org.mockito.Mockito.when;
  * @version 1.0.0 30/05/2026
  */
 @DisplayName("Update Option Feature")
-@ExtendWith(MockitoExtension.class)
-class UpdateOptionFeatureTest {
+class UpdateOptionFeatureTest extends AbstractMockTest {
     @Mock
     private OptionRepository optionRepository;
     @InjectMocks

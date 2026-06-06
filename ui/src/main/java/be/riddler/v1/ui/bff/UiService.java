@@ -3,11 +3,12 @@ package be.riddler.v1.ui.bff;
 import be.riddler.v1.ui.client.UiClient;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * ComponentService
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @AnonymousAllowed
 @BrowserCallable
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class UiService {
     private final UiClient uiClient;
 

@@ -2,7 +2,6 @@ package be.riddler.v1.security.api;
 
 import be.riddler.v1.security.client.SecurityClient;
 import be.riddler.v1.security.client.model.UserInfo;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Objects;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * SecurityResource
@@ -19,7 +20,7 @@ import java.util.Objects;
  */
 @RestController
 @RequestMapping(path = "/v1/security")
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class SecurityResource implements SecurityClient {
     private final UserDetailsService userDetailsService;
 

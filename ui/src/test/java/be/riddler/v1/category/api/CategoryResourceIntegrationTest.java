@@ -7,15 +7,12 @@ import be.riddler.v1.category.client.model.CreateKeyword;
 import be.riddler.v1.category.client.model.UpdateCategory;
 import be.riddler.v1.category.client.model.UpdateKeyword;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import static be.riddler.v1.category.api.CategoryResource.BASE;
 import static be.riddler.v1.fixture.Fixture.Category.CATEGORY_ID;
 import static java.util.List.of;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 /**
@@ -25,7 +22,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
  * @version 1.0.0 31/05/2026
  */
 @DisplayName("Category Resource")
-@TestMethodOrder(value = MethodOrderer.DisplayName.class)
 class CategoryResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @DisplayName("1 Fetches 6 categories")
@@ -38,7 +34,7 @@ class CategoryResourceIntegrationTest extends AbstractResourceIntegrationTest {
                 .returnResult()
                 .getResponseBody();
 
-        assertNotNull(categories);
+        assertThat(categories).isNotNull();
         assertThat(categories).isNotEmpty();
         assertThat(categories).hasSize(6);
     }

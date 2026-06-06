@@ -5,11 +5,12 @@ import be.riddler.v1.question.client.model.UpdateOption;
 import be.riddler.v1.question.feature.UpdateOptionFeature;
 import be.riddler.v1.question.mapper.OptionMapper;
 import be.riddler.v1.question.repository.OptionRepository;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * UpdateOptionFeatureImpl
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0.0 29/05/2026
  */
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class UpdateOptionFeatureImpl implements UpdateOptionFeature {
     private final OptionRepository optionRepository;
 

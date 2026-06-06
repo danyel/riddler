@@ -59,7 +59,7 @@ public interface ParticipantClient {
                     )
             }
     )
-    @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @NonNull Participant findById(@PathVariable(name = "id") @NonNull UUID participantId);
 

@@ -1,5 +1,6 @@
 package be.riddler.v1.answer.mapper;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.answer.client.model.CreateAnswer;
 import be.riddler.v1.answer.client.model.CreateSolution;
 import be.riddler.v1.fixture.Fixture;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @version 1.0.0 31/05/2026
  */
 @DisplayName("Answer Mapper")
-class AnswerMapperTest {
+class AnswerMapperTest extends AbstractMockTest {
 
     @DisplayName("Mapping the create answer to answer entity")
     @Test

@@ -8,7 +8,6 @@ import be.riddler.v1.ui.client.model.TranslationProperty;
 import be.riddler.v1.ui.feature.GetIconsFeature;
 import be.riddler.v1.ui.feature.GetTranslationFeature;
 import be.riddler.v1.ui.feature.GetTranslationsByLanguageFeature;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Stream;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * ComponentsResource
@@ -25,7 +26,7 @@ import java.util.stream.Stream;
  */
 @RestController
 @RequestMapping(path = "/v1/ui")
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 @Slf4j
 public class UiResource implements UiClient {
     private final GetIconsFeature getIconsFeature;

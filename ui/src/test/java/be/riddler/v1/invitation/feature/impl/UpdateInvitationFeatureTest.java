@@ -1,14 +1,13 @@
 package be.riddler.v1.invitation.feature.impl;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.invitation.client.model.UpdateInvitation;
 import be.riddler.v1.invitation.repository.InvitationRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +28,7 @@ import static org.mockito.BDDMockito.then;
  * @version 1.0.0 31/05/2026
  */
 @DisplayName("Update Invitation Feature")
-@ExtendWith(MockitoExtension.class)
-class UpdateInvitationFeatureTest {
+class UpdateInvitationFeatureTest extends AbstractMockTest {
     @Mock
     private InvitationRepository invitationRepository;
     @InjectMocks

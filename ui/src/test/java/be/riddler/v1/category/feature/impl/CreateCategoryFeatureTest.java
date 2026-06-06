@@ -1,5 +1,6 @@
 package be.riddler.v1.category.feature.impl;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.category.client.model.Category;
 import be.riddler.v1.category.client.model.CreateCategory;
 import be.riddler.v1.category.client.model.CreateKeyword;
@@ -12,11 +13,9 @@ import be.riddler.v1.category.repository.CategoryRepository;
 import be.riddler.v1.category.repository.KeywordRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 
@@ -38,8 +37,7 @@ import static org.mockito.Mockito.mockStatic;
  * @version 1.0.0 30/05/2026
  */
 @DisplayName("Create Category Feature")
-@ExtendWith(MockitoExtension.class)
-class CreateCategoryFeatureTest {
+class CreateCategoryFeatureTest extends AbstractMockTest {
     @Mock
     private CategoryRepository categoryRepository;
     @Mock

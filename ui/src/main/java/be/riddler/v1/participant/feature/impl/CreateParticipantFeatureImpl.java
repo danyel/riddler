@@ -5,11 +5,12 @@ import be.riddler.v1.participant.client.model.Participant;
 import be.riddler.v1.participant.feature.CreateParticipantFeature;
 import be.riddler.v1.participant.mapper.ParticipantMapper;
 import be.riddler.v1.participant.repository.ParticipantRepository;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * CreateParticipantFeature
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0.0 09/05/2026
  */
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class CreateParticipantFeatureImpl implements CreateParticipantFeature {
     private final ParticipantRepository participantRepository;
 

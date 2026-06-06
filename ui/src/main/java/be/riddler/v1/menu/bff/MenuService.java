@@ -4,11 +4,12 @@ import be.riddler.v1.menu.client.MenuClient;
 import be.riddler.v1.menu.client.model.Menu;
 import com.vaadin.hilla.BrowserCallable;
 import jakarta.annotation.security.PermitAll;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * MenuService
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @BrowserCallable
 @PermitAll
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class MenuService {
     private final MenuClient menuClient;
 

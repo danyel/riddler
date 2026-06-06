@@ -1,5 +1,6 @@
 package be.riddler.common.resource;
 
+import be.riddler.common.AbstractContainerTest;
 import be.riddler.configuration.TestcontainersConfiguration;
 import lombok.Getter;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +11,6 @@ import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTest
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import tools.jackson.databind.ObjectMapper;
 
@@ -39,10 +39,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
  * @version 1.0.0 26/04/2026
  */
 @SpringBootTest(webEnvironment = RANDOM_PORT)
-@ActiveProfiles("test")
 @AutoConfigureWebTestClient
 @Import({TestcontainersConfiguration.class})
-public abstract class AbstractResourceIntegrationTest {
+public abstract class AbstractResourceIntegrationTest extends AbstractContainerTest {
     @Autowired
     @Getter
     private WebTestClient webTestClient;
@@ -56,6 +55,9 @@ public abstract class AbstractResourceIntegrationTest {
 
     @BeforeEach
     void setUp() {
+        webTestClient.mutate()
+                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024))
+                .build();
         var secretKey = hmacShaKeyFor(getDecoder().decode(authSecret));
         var oneHourInSeconds = 3600;
         var fullToken = builder()

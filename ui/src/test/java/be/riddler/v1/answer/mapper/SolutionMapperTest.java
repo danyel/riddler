@@ -1,5 +1,6 @@
 package be.riddler.v1.answer.mapper;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.answer.client.model.CreateSolution;
 import be.riddler.v1.fixture.Fixture;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @version 1.0.0 31/05/2026
  */
 @DisplayName("Solution Mapper")
-class SolutionMapperTest {
+class SolutionMapperTest extends AbstractMockTest {
 
     @DisplayName("Maps Create Solution to Solution Entity")
     @Test

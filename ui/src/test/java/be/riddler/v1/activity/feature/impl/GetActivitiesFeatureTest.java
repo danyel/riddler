@@ -1,5 +1,6 @@
 package be.riddler.v1.activity.feature.impl;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.activity.client.model.ActivityDetail;
 import be.riddler.v1.activity.client.model.GetActivities;
 import be.riddler.v1.activity.entity.ActivityEntity;
@@ -7,11 +8,9 @@ import be.riddler.v1.activity.mapper.ActivityMapper;
 import be.riddler.v1.activity.repository.ActivityRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
@@ -29,8 +28,7 @@ import static org.mockito.Mockito.when;
  * @version 1.0.0 30/05/2026
  */
 @DisplayName("Get Activities Feature")
-@ExtendWith(MockitoExtension.class)
-class GetActivitiesFeatureTest {
+class GetActivitiesFeatureTest extends AbstractMockTest {
     @Mock
     private ActivityRepository activityRepository;
     @InjectMocks

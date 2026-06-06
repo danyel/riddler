@@ -5,11 +5,12 @@ import be.riddler.v1.publication.client.model.Position;
 import be.riddler.v1.publication.feature.CreatePositionFeature;
 import be.riddler.v1.publication.mapper.PositionMapper;
 import be.riddler.v1.publication.repository.PositionRepository;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * CreatePositionFeatureImpl
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0.0 15/05/2026
  */
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class CreatePositionFeatureImpl implements CreatePositionFeature {
     private final PositionRepository positionRepository;
 

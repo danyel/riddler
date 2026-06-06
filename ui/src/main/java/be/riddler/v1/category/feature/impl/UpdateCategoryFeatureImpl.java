@@ -5,8 +5,6 @@ import be.riddler.v1.category.client.model.UpdateCategory;
 import be.riddler.v1.category.client.model.UpdateKeyword;
 import be.riddler.v1.category.entity.KeywordEntity;
 import be.riddler.v1.category.feature.UpdateCategoryFeature;
-import be.riddler.v1.category.mapper.CategoryMapper;
-import be.riddler.v1.category.mapper.KeywordMapper;
 import be.riddler.v1.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
@@ -16,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import static be.riddler.v1.category.mapper.CategoryMapper.fromCategoryEntity;
+import static be.riddler.v1.category.mapper.KeywordMapper.fromUpdateKeyword;
 import static java.util.Objects.nonNull;
 import static lombok.AccessLevel.PACKAGE;
 
@@ -56,13 +56,13 @@ class UpdateCategoryFeatureImpl implements UpdateCategoryFeature {
                             keywordEntity.setWord(updateKeyword.word());
                         }
                     } else {
-                        var keywordToBeSaved = KeywordMapper.fromUpdateKeyword(updateKeyword);
+                        var keywordToBeSaved = fromUpdateKeyword(updateKeyword);
                         keywordToBeSaved.setCategory(categoryEntity);
                         categoryEntity.getKeywords().add(keywordToBeSaved);
                     }
                 });
         keywordIds.forEach(keywordId -> categoryEntity.getKeywords().remove(uuidKeywordMap.get(keywordId)));
         categoryRepository.save(categoryEntity);
-        return CategoryMapper.fromCategoryEntity(categoryEntity);
+        return fromCategoryEntity(categoryEntity);
     }
 }

@@ -21,8 +21,8 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.sql.Types;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ParticipantEntity
@@ -55,5 +55,5 @@ public class ParticipantEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     @Builder.Default
-    private Set<CategoryEntity> categories = new HashSet<>();
+    private List<CategoryEntity> categories = new ArrayList<>();
 }

@@ -6,9 +6,10 @@ import be.riddler.v1.question.client.model.Option;
 import be.riddler.v1.question.client.model.UpdateOption;
 import com.vaadin.hilla.BrowserCallable;
 import jakarta.annotation.security.RolesAllowed;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * OptionEndpoint
@@ -18,7 +19,7 @@ import org.jspecify.annotations.NonNull;
  */
 @BrowserCallable
 @RolesAllowed("ADMIN")
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class OptionEndpoint {
     private final QuestionClient questionApi;
 

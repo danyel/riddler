@@ -134,7 +134,7 @@ export default function ProfilePage() {
     };
 
     function removeBookmark() {
-        BookmarkEndpoint.deleteBookmark(bookmark!!)
+        BookmarkEndpoint.deleteBookmark(bookmark!!.id!!)
             .then(() => {
                     dialogOpened.value = false;
                     setSettings({

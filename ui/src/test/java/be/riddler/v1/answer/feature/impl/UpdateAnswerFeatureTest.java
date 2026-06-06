@@ -1,5 +1,6 @@
 package be.riddler.v1.answer.feature.impl;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.answer.client.model.UpdateAnswer;
 import be.riddler.v1.answer.client.model.UpdateSolution;
 import be.riddler.v1.answer.entity.AnswerEntity;
@@ -8,12 +9,10 @@ import be.riddler.v1.answer.repository.AnswerRepository;
 import be.riddler.v1.answer.repository.SolutionRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -37,8 +36,7 @@ import static org.mockito.Mockito.when;
  * @version 1.0.0 30/05/2026
  */
 @DisplayName("Update Answer Feature")
-@ExtendWith(MockitoExtension.class)
-class UpdateAnswerFeatureTest {
+class UpdateAnswerFeatureTest extends AbstractMockTest {
     @Mock
     private AnswerRepository answerRepository;
     @Mock

@@ -6,13 +6,14 @@ import be.riddler.v1.invitation.mapper.InvitationMapper;
 import be.riddler.v1.invitation.repository.InvitationRepository;
 import be.riddler.v1.participant.codec.TokenProvider;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * GenerateTokenFeature
@@ -21,7 +22,7 @@ import java.util.UUID;
  * @version 1.0.0 09/05/2026
  */
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class GenerateTokenFeatureImpl implements GenerateTokenFeature {
     private final InvitationRepository invitationRepository;
     private final TokenProvider tokenProvider;

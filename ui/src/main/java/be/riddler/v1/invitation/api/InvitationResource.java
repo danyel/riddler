@@ -10,7 +10,6 @@ import be.riddler.v1.invitation.feature.FindByIdFeature;
 import be.riddler.v1.invitation.feature.GenerateTokenFeature;
 import be.riddler.v1.invitation.feature.SaveInvitationFeature;
 import be.riddler.v1.invitation.feature.UpdateInvitationFeature;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * InvitationResource
@@ -27,7 +28,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/v1/invitations")
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class InvitationResource implements InvitationClient {
     private final SaveInvitationFeature saveInvitationFeature;
     private final FindByIdFeature findByIdFeature;

@@ -1,14 +1,13 @@
 package be.riddler.v1.answer.feature.impl;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.answer.client.model.QuestionId;
 import be.riddler.v1.answer.entity.AnswerEntity;
 import be.riddler.v1.answer.repository.AnswerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.UUID;
 
@@ -23,8 +22,7 @@ import static org.mockito.Mockito.when;
  * @version 1.0.0 30/05/2026
  */
 @DisplayName("Get Answers By Question Id Feature")
-@ExtendWith(MockitoExtension.class)
-class GetAnswersByQuestionIdFeatureTest {
+class GetAnswersByQuestionIdFeatureTest extends AbstractMockTest {
     @Mock
     private AnswerRepository answerRepository;
     @InjectMocks

@@ -3,9 +3,11 @@ package be.riddler.v1.fixture;
 import be.riddler.v1.answer.entity.AnswerEntity;
 import be.riddler.v1.answer.entity.SolutionEntity;
 import be.riddler.v1.category.entity.CategoryEntity;
+import be.riddler.v1.category.entity.KeywordEntity;
 import be.riddler.v1.invitation.entity.InvitationEntity;
 import be.riddler.v1.invitation.entity.InvitationQuestionEntity;
 import be.riddler.v1.invitation.entity.InvitationQuestionId;
+import be.riddler.v1.participant.entity.ParticipantEntity;
 import be.riddler.v1.publication.entity.LevelEntity;
 import be.riddler.v1.publication.entity.PositionEntity;
 import be.riddler.v1.publication.entity.PublicationEntity;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static be.riddler.v1.fixture.Fixture.Category.CATEGORY_ENTITY;
 import static be.riddler.v1.fixture.Fixture.Level.LEVEL_ENTITY;
 import static be.riddler.v1.fixture.Fixture.Participant.PARTICIPANT_ID;
 import static be.riddler.v1.fixture.Fixture.Publication.PUBLICATION_ENTITY;
@@ -53,6 +56,12 @@ public class Fixture {
 
     public static class Keyword {
         public static final UUID KEYWORD_ID = fromString("44444444-4444-4444-4444-444444444444");
+
+        public static final KeywordEntity KEYWORD_ENTITY = KeywordEntity.builder()
+                .id(KEYWORD_ID)
+                .word("word")
+                .category(CATEGORY_ENTITY)
+                .build();
     }
 
     public static class Option {
@@ -60,8 +69,7 @@ public class Fixture {
     }
 
     public static class Invitation {
-        public static final UUID INVITATION_ID = fromString("77777777-7777-7777-7777-777777777777");
-        public static final UUID DB_ID = fromString("d376b894-b259-4714-87c6-cf411e5b10db");
+        public static final UUID INVITATION_ID = fromString("d376b894-b259-4714-87c6-cf411e5b10db");
 
         public static final InvitationEntity INVITATION_ENTITY = InvitationEntity.builder()
                 .id(INVITATION_ID)
@@ -114,7 +122,23 @@ public class Fixture {
     }
 
     public static class Participant {
-        public static final UUID PARTICIPANT_ID = fromString("88888888-8888-8888-8888-888888888888");
+        public static final UUID PARTICIPANT_ID = fromString("dbc132cc-b918-40fa-b2e9-81032635c4e8");
+        public static final ParticipantEntity PARTICIPANT_ENTITY = ParticipantEntity.builder()
+                .id(PARTICIPANT_ID)
+                .email("user@email.net")
+                .firstName("firstName")
+                .lastName("lastName")
+                .build();
+
+        public static final be.riddler.v1.participant.client.model.Participant PARTICIPANT = new be.riddler.v1.participant.client.model.Participant(
+                PARTICIPANT_ID,
+                "firstName",
+                "lastName",
+                "user@email.net",
+                "photo",
+                "cv",
+                List.of()
+        );
     }
 
     public static class Solution {
@@ -123,5 +147,9 @@ public class Fixture {
                 .value("value")
                 .id(SOLUTION_ID)
                 .build();
+    }
+
+    public static class Bookmark {
+        public static final UUID BOOKMARK_ID = fromString("04c462f3-e79b-484f-9ee8-0222ced10a8e");
     }
 }

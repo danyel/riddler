@@ -16,7 +16,6 @@ import be.riddler.v1.publication.feature.FindAllPublicationsFeature;
 import be.riddler.v1.publication.feature.FindLevelByIdFeature;
 import be.riddler.v1.publication.feature.FindPositionByIdFeature;
 import be.riddler.v1.publication.feature.FindPublicationByIdFeature;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.UUID;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * PublicationResource
@@ -33,7 +34,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping(path = "/v1/publications")
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class PublicationResource implements PublicationClient {
     private final FindAllPublicationsFeature findAllPublicationsFeature;
     private final FindPublicationByIdFeature findPublicationByIdFeature;

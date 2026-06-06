@@ -1,5 +1,6 @@
 package be.riddler.v1.activity.feature.impl;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.activity.client.model.ActivityDetail;
 import be.riddler.v1.activity.client.model.CreateActivity;
 import be.riddler.v1.activity.entity.ActivityEntity;
@@ -7,11 +8,9 @@ import be.riddler.v1.activity.mapper.ActivityMapper;
 import be.riddler.v1.activity.repository.ActivityRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -31,8 +30,7 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
  * @version 1.0.0 30/05/2026
  */
 @DisplayName("Create Activity Feature")
-@ExtendWith(MockitoExtension.class)
-class CreateActivityFeatureTest {
+class CreateActivityFeatureTest extends AbstractMockTest {
     @Mock
     private ActivityRepository activityRepository;
     @InjectMocks

@@ -1,6 +1,5 @@
 package be.riddler.v1.participant.api;
 
-import be.riddler.v1.invitation.feature.GenerateTokenFeature;
 import be.riddler.v1.participant.client.ParticipantClient;
 import be.riddler.v1.participant.client.model.CreateParticipant;
 import be.riddler.v1.participant.client.model.Participant;
@@ -11,7 +10,6 @@ import be.riddler.v1.participant.feature.FindByParticipantIdFeature;
 import be.riddler.v1.participant.feature.UploadCvFeature;
 import be.riddler.v1.participant.feature.UploadPhotoFeature;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
@@ -25,6 +23,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
+import static lombok.AccessLevel.PACKAGE;
+
 /**
  * ParticipantResource
  *
@@ -32,12 +32,12 @@ import java.util.UUID;
  * @version 1.0.0 09/05/2026
  */
 @RestController
-@RequestMapping("/v1/participants")
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequestMapping(path = ParticipantResource.BASE)
+@RequiredArgsConstructor(access = PACKAGE)
 class ParticipantResource implements ParticipantClient {
+    public static final String BASE = "/v1/participants";
     private final FindByParticipantIdFeature findByParticipantIdFeature;
     private final FindAllParticipantsFeature findAllParticipantsFeature;
-    private final GenerateTokenFeature generateTokenFeature;
     private final CreateParticipantFeature createParticipantFeature;
     private final UploadPhotoFeature uploadPhotoFeature;
     private final UploadCvFeature uploadCvFeature;

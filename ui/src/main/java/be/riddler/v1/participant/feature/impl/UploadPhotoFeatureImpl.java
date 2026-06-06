@@ -2,13 +2,13 @@ package be.riddler.v1.participant.feature.impl;
 
 import be.riddler.v1.participant.feature.UploadPhotoFeature;
 import be.riddler.v1.participant.repository.ParticipantRepository;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * UploadPhotoFeatureImpl
@@ -17,7 +17,7 @@ import java.util.UUID;
  * @version 1.0.0 10/05/2026
  */
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class UploadPhotoFeatureImpl implements UploadPhotoFeature {
     private final ParticipantRepository participantRepository;
 
@@ -29,7 +29,7 @@ class UploadPhotoFeatureImpl implements UploadPhotoFeature {
                     participant.setPhoto(data);
                     participantRepository.save(participant);
                 }, () -> {
-                    throw new EntityNotFoundException("Could not find participant with id " + participantId);
+                    throw new ParticipantNotFound(participantId);
                 });
     }
 }

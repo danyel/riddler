@@ -17,7 +17,6 @@ import be.riddler.v1.question.feature.GetQuestionsByIdsFeature;
 import be.riddler.v1.question.feature.GetQuestionsFeature;
 import be.riddler.v1.question.feature.UpdateOptionFeature;
 import be.riddler.v1.question.feature.UpdateQuestionFeature;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 import java.util.UUID;
 
+import static lombok.AccessLevel.PACKAGE;
+
 /**
  * QuestionResource
  *
@@ -33,7 +34,7 @@ import java.util.UUID;
  * @version 1.0.0 25/04/2026
  */
 @RestController
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 @RequestMapping(path = "/v1/questions")
 class QuestionResource implements QuestionClient {
     private final CreateQuestionFeature createQuestionFeature;

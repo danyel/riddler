@@ -1,14 +1,13 @@
 package be.riddler.v1.category.bff;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.category.client.CategoryClient;
 import be.riddler.v1.category.client.model.CreateCategory;
 import be.riddler.v1.category.client.model.UpdateCategory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import static be.riddler.v1.fixture.Fixture.Category.CATEGORY_ID;
 import static org.mockito.Mockito.mock;
@@ -21,8 +20,7 @@ import static org.mockito.Mockito.verify;
  * @version 1.0.0 31/05/2026
  */
 @DisplayName("Category Endpoint")
-@ExtendWith(MockitoExtension.class)
-class CategoryEndpointTest {
+class CategoryEndpointTest extends AbstractMockTest {
     @Mock
     private CategoryClient categoryClient;
     @InjectMocks

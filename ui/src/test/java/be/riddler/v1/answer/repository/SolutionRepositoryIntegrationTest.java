@@ -3,7 +3,6 @@ package be.riddler.v1.answer.repository;
 import be.riddler.common.repository.AbstractRepositoryIntegrationTest;
 import be.riddler.v1.answer.entity.AnswerEntity;
 import be.riddler.v1.answer.entity.SolutionEntity;
-import be.riddler.v1.fixture.Fixture;
 import be.riddler.v1.question.client.model.QuestionType;
 import be.riddler.v1.question.entity.QuestionEntity;
 import be.riddler.v1.question.repository.QuestionRepository;
@@ -12,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import static be.riddler.v1.fixture.Fixture.Invitation.INVITATION_ID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -41,7 +41,7 @@ class SolutionRepositoryIntegrationTest extends AbstractRepositoryIntegrationTes
                 .build());
         var answerEntity = answerRepository.save(AnswerEntity.builder()
                 .questionId(questionEntity.getId())
-                .invitationId(Fixture.Invitation.DB_ID)
+                .invitationId(INVITATION_ID)
                 .build());
         var solutionEntity = solutionRepository.save(SolutionEntity.builder()
                 .value("value")
@@ -69,7 +69,7 @@ class SolutionRepositoryIntegrationTest extends AbstractRepositoryIntegrationTes
                 .build());
         var answerEntity = answerRepository.save(AnswerEntity.builder()
                 .questionId(questionEntity.getId())
-                .invitationId(Fixture.Invitation.DB_ID)
+                .invitationId(INVITATION_ID)
                 .build());
         var solutionEntity = solutionRepository.save(SolutionEntity.builder()
                 .value("value")

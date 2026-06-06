@@ -5,7 +5,6 @@ import be.riddler.v1.invitation.entity.InvitationEntity;
 import be.riddler.v1.invitation.feature.FindAllByParticipantIdFeature;
 import be.riddler.v1.invitation.mapper.InvitationMapper;
 import be.riddler.v1.invitation.repository.InvitationRepository;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static lombok.AccessLevel.PACKAGE;
+
 /**
  * FindInvitationByIdFeature
  *
@@ -23,7 +24,7 @@ import java.util.UUID;
  * @version 1.0.0 10/05/2026
  */
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class FindAllByParticipantIdFeatureImpl implements FindAllByParticipantIdFeature {
     private final InvitationRepository invitationRepository;
 

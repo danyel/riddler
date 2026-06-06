@@ -13,12 +13,13 @@ import be.riddler.v1.publication.repository.LevelRepository;
 import be.riddler.v1.publication.repository.PositionRepository;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.UUID;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * PublicationsEndpoint
@@ -28,7 +29,7 @@ import java.util.UUID;
  */
 @AnonymousAllowed
 @BrowserCallable
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class PublicationsEndpoint {
     private final PublicationClient publicationClient;
     private final LevelRepository levelRepository;

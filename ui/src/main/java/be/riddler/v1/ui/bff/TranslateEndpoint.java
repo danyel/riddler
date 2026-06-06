@@ -4,9 +4,10 @@ import be.riddler.v1.ui.client.UiClient;
 import be.riddler.v1.ui.client.model.Translation;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * QuestionTypeEndpoint
@@ -16,7 +17,7 @@ import org.jspecify.annotations.NonNull;
  */
 @AnonymousAllowed
 @BrowserCallable
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class TranslateEndpoint {
     private final UiClient uiClient;
 

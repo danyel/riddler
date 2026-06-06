@@ -201,7 +201,7 @@ export function SideBar() {
 
     const deleteBookmark = (bookmark: Bookmarkable) => {
         LOGGER.debug('Bookmark {}', bookmark.id);
-        BookmarkEndpoint.deleteBookmark(bookmark)
+        BookmarkEndpoint.deleteBookmark(bookmark.id!!)
             .then(() => {
                 Notify.warn('Bookmark {} removed', bookmark.label)
                 SettingsEndpoint.getSettings()

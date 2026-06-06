@@ -6,11 +6,12 @@ import be.riddler.v1.settings.feature.FindSettingsByUsernameFeature;
 import be.riddler.v1.settings.mapper.SettingsMapper;
 import be.riddler.v1.settings.model.Settings;
 import be.riddler.v1.settings.repository.SettingsRepository;
-import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * FindSettingsByUsernameFeatureImpl
@@ -19,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @version 1.0.0 14/05/2026
  */
 @Service
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class FindSettingsByUsernameFeatureImpl implements FindSettingsByUsernameFeature {
     private final SettingsRepository settingsRepository;
 

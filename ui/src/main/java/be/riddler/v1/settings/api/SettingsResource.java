@@ -6,13 +6,14 @@ import be.riddler.v1.settings.feature.DeleteBookmarkByIdFeature;
 import be.riddler.v1.settings.feature.FindSettingsByUsernameFeature;
 import be.riddler.v1.settings.model.CreateBookmark;
 import be.riddler.v1.settings.model.Settings;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * SettingsResource
@@ -22,7 +23,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping(path = "/v1/settings")
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 class SettingsResource implements SettingsClient {
     private final FindSettingsByUsernameFeature findSettingsByUsernameFeature;
     private final CreateBookmarkFeature createBookmarkFeature;

@@ -6,13 +6,14 @@ import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
 import com.vaadin.hilla.crud.CrudService;
 import com.vaadin.hilla.crud.filter.Filter;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * PublicationCrudService
@@ -22,12 +23,12 @@ import java.util.List;
  */
 @AnonymousAllowed
 @BrowserCallable
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class PublicationCrudService implements CrudService<PublicationEntity, PublicationRepository> {
     private final PublicationRepository publicationRepository;
 
     @Override
-    public @Nullable PublicationEntity save(PublicationEntity value) {
+    public @Nullable PublicationEntity save(@NonNull PublicationEntity value) {
         return publicationRepository.save(value);
     }
 

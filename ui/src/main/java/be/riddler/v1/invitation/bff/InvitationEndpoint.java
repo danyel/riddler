@@ -10,12 +10,13 @@ import be.riddler.v1.question.client.QuestionClient;
 import be.riddler.v1.question.client.model.Question;
 import com.vaadin.hilla.BrowserCallable;
 import jakarta.annotation.security.RolesAllowed;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 
 import java.util.List;
 import java.util.UUID;
+
+import static lombok.AccessLevel.PACKAGE;
 
 /**
  * InvitationEndpoint
@@ -25,7 +26,7 @@ import java.util.UUID;
  */
 @BrowserCallable
 @RolesAllowed({"USER", "ADMIN"})
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class InvitationEndpoint {
     private final InvitationClient invitationClient;
     private final QuestionClient questionClient;

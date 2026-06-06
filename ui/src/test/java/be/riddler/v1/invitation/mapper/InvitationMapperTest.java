@@ -1,10 +1,9 @@
 package be.riddler.v1.invitation.mapper;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.invitation.client.model.CreateInvitation;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import static be.riddler.v1.fixture.Fixture.Invitation.INVITATION_ENTITY;
 import static be.riddler.v1.fixture.Fixture.Invitation.INVITATION_ENTITY_WITH_QUESTIONS;
@@ -26,8 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
  * @version 1.0.0 31/05/2026
  */
 @DisplayName("Invitation Mapper")
-@TestMethodOrder(value = MethodOrderer.DisplayName.class)
-class InvitationMapperTest {
+class InvitationMapperTest extends AbstractMockTest {
     @DisplayName("1 Map Create Invitation")
     @Test
     void mapCreateInvitation() {

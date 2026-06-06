@@ -1,5 +1,6 @@
 package be.riddler.v1.answer.feature.impl;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.answer.client.model.Answer;
 import be.riddler.v1.answer.client.model.CreateAnswer;
 import be.riddler.v1.answer.client.model.CreateSolution;
@@ -12,11 +13,9 @@ import be.riddler.v1.answer.repository.SolutionRepository;
 import be.riddler.v1.fixture.Fixture;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockedStatic;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
@@ -35,8 +34,7 @@ import static org.mockito.Mockito.mockStatic;
  * @version 1.0.0 30/05/2026
  */
 @DisplayName("Create Answer Feature")
-@ExtendWith(MockitoExtension.class)
-class CreateAnswerFeatureTest {
+class CreateAnswerFeatureTest extends AbstractMockTest {
     @Mock
     private AnswerRepository answerRepository;
     @Mock

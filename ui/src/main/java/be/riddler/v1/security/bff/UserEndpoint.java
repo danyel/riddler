@@ -6,7 +6,6 @@ import be.riddler.v1.security.client.model.UserInfo;
 import be.riddler.v1.settings.constants.UserContext;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,6 +18,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static lombok.AccessLevel.PACKAGE;
+
 /**
  * UserService
  *
@@ -27,7 +28,7 @@ import java.util.UUID;
  */
 @BrowserCallable
 @AnonymousAllowed
-@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
+@RequiredArgsConstructor(access = PACKAGE)
 public class UserEndpoint {
     private final InvitationRepository invitationRepository;
 

@@ -1,5 +1,6 @@
 package be.riddler.v1.activity.mapper;
 
+import be.riddler.common.AbstractMockTest;
 import be.riddler.v1.activity.client.model.CreateActivity;
 import be.riddler.v1.activity.entity.ActivityEntity;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
  * @version 1.0.0 30/05/2026
  */
 @DisplayName("Activity Mapper")
-class ActivityMapperTest {
+class ActivityMapperTest extends AbstractMockTest {
 
     @Test
     void fromCreateActivity() {
