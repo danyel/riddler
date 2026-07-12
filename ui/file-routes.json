@@ -1,0 +1,173 @@
+[
+  {
+    "route": "login",
+    "flowLayout": false,
+    "params": {},
+    "title": "Login Layout",
+    "children": [
+      {
+        "route": "",
+        "flowLayout": false,
+        "params": {},
+        "title": "Login"
+      }
+    ]
+  },
+  {
+    "route": "participant",
+    "flowLayout": false,
+    "params": {},
+    "title": "Participant Layout",
+    "children": [
+      {
+        "route": "",
+        "flowLayout": false,
+        "params": {},
+        "title": "Participant Page"
+      },
+      {
+        "route": "interview-wizard",
+        "flowLayout": false,
+        "params": {},
+        "title": "Inter Wizard"
+      },
+      {
+        "route": "question",
+        "params": {},
+        "children": [
+          {
+            "route": "view-question-page",
+            "flowLayout": false,
+            "params": {},
+            "title": "Question Page"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "route": "secured",
+    "flowLayout": false,
+    "params": {},
+    "title": "Main Layout",
+    "children": [
+      {
+        "route": "",
+        "title": "Home",
+        "loginRequired": true,
+        "flowLayout": false,
+        "params": {}
+      },
+      {
+        "route": "administration",
+        "params": {},
+        "children": [
+          {
+            "route": "administration",
+            "flowLayout": false,
+            "params": {},
+            "title": "Administration Page"
+          }
+        ]
+      },
+      {
+        "route": "category",
+        "params": {},
+        "children": [
+          {
+            "route": "categories",
+            "flowLayout": false,
+            "params": {},
+            "title": "Category Management Page"
+          }
+        ]
+      },
+      {
+        "route": "icons",
+        "params": {},
+        "children": [
+          {
+            "route": "icons",
+            "flowLayout": false,
+            "params": {},
+            "title": "Icons"
+          }
+        ]
+      },
+      {
+        "route": "invitation",
+        "params": {},
+        "children": [
+          {
+            "route": "invitation",
+            "flowLayout": false,
+            "params": {},
+            "title": "Invitation Page"
+          }
+        ]
+      },
+      {
+        "route": "participants",
+        "params": {},
+        "children": [
+          {
+            "route": "participants",
+            "flowLayout": false,
+            "params": {},
+            "title": "Participants Page"
+          }
+        ]
+      },
+      {
+        "route": "profile",
+        "params": {},
+        "children": [
+          {
+            "route": "profile",
+            "flowLayout": false,
+            "params": {},
+            "title": "Profile Page"
+          }
+        ]
+      },
+      {
+        "route": "publication",
+        "params": {},
+        "children": [
+          {
+            "route": "publication",
+            "flowLayout": false,
+            "params": {},
+            "title": "Publication Page"
+          },
+          {
+            "route": "publications",
+            "flowLayout": false,
+            "params": {},
+            "title": "Publications Page"
+          }
+        ]
+      },
+      {
+        "route": "questions",
+        "params": {},
+        "children": [
+          {
+            "route": ":id",
+            "flowLayout": false,
+            "params": {
+              ":id": "req"
+            },
+            "title": "Question Detail Page"
+          },
+          {
+            "route": "questions",
+            "flowLayout": false,
+            "params": {},
+            "title": "Questions"
+          }
+        ]
+      }
+    ]
+  }
+]
