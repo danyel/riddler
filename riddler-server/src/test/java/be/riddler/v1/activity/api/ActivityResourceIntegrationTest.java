@@ -32,7 +32,7 @@ class ActivityResourceIntegrationTest extends AbstractResourceIntegrationTest {
         var createActivity = new CreateActivity(DB_ID, actionType, elementId, instant, additionalData);
 
         var activityDetailCreated = doExchange(getWebTestClient().post()
-                .uri(Paths.CATEGORY)
+                .uri(Paths.ACTIVITY)
                 .bodyValue(createActivity))
                 .expectStatus()
                 .isCreated()
@@ -43,7 +43,7 @@ class ActivityResourceIntegrationTest extends AbstractResourceIntegrationTest {
         assert activityDetailCreated != null;
 
         var activityDetails = doExchange(getWebTestClient().get()
-                .uri("%s/%s".formatted(Paths.CATEGORY, DB_ID)))
+                .uri("%s/%s".formatted(Paths.ACTIVITY, DB_ID)))
                 .expectStatus()
                 .isOk()
                 .expectBody(ActivityDetail[].class)

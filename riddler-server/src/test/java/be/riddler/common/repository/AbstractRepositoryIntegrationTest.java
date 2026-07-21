@@ -1,5 +1,6 @@
 package be.riddler.common.repository;
 
+import be.riddler.common.AbstractContainerTest;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
 
 /**
@@ -9,5 +10,5 @@ import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
  * @version 1.0.0 26/04/2026
  */
 @DataJpaTest
-public abstract class AbstractRepositoryIntegrationTest {
+public abstract class AbstractRepositoryIntegrationTest extends AbstractContainerTest {
 }

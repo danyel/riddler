@@ -10,5 +10,5 @@ import org.springframework.context.annotation.Import;
  * @version 1.0.0 06/06/2026
  */
 @Import({TestcontainersConfiguration.class})
-public abstract class AbstractContainerTest {
+public abstract class AbstractContainerTest extends AbstractTest {
 }

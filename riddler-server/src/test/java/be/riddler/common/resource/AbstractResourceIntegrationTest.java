@@ -55,7 +55,7 @@ public abstract class AbstractResourceIntegrationTest extends AbstractContainerT
 
     @BeforeEach
     void setUp() {
-        webTestClient.mutate()
+        webTestClient = webTestClient.mutate()
                 .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(16 * 1024 * 1024))
                 .build();
         var secretKey = hmacShaKeyFor(getDecoder().decode(authSecret));
