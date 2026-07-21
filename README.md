@@ -1,82 +1,97 @@
-# Riddle API
+# Riddler 🧩
 
-## Environment setup
+<!-- Tech Stack Badges -->
+<p align="left">
+  <img src="https://shields.io" alt="Java 25" />
+  <img src="https://shields.io" alt="Spring Boot 4" />
+  <img src="https://shields.io" alt="Vaadin" />
+  <img src="https://shields.io" alt="Hilla React" />
+  <img src="https://shields.io" alt="PostgreSQL" />
+</p>
 
-### Docker
+<!-- CI/CD Status Telemetry -->
+[![Java CI with Maven](https://github.com)](https://github.com)
+![GitHub repo size](https://shields.io)
+![GitHub last commit](https://shields.io)
 
+---
+
+## 🛠️ Environment Setup
+
+### 🐳 Docker
+
+Spin up the required database and middleware infrastructure services:
 ```bash
 docker compose -f infrastructure/docker-compose.yml up -d
 ```
 
-### Java
+### ☕ Java
 
-Version: jdk 25
+**Target Version:** OpenJDK 25
 
-#### SDK Man
-
+#### Via SDKMAN!
 ```bash
 sdk env install
 ```
 
-#### Manual
+#### Manual Installation
 
-Download and install in system path\
-Temurin: https://adoptium.net/en-GB/temurin/releases
+Download and export the runtime explicitly to your system path:
 
-### Maven
+* **Eclipse Temurin:** [Adoptium Releases](https://adoptium.net/en-GB/temurin/releases)
 
-### SDK Man
+---
 
+## 📦 Build & Dependency Management
+
+### Via SDKMAN!
 ```bash
 sdk env install
 ```
 
-#### Manual
+### Manual Installation
 
-Download and install in system path\
-Maven: https://archive.apache.org/dist/maven/maven-3/
+* **Apache Maven:** [Maven Binaries Archive](https://archive.apache.org/dist/maven/maven-3/)
 
-## Tech stack
+### Compile and Package Application
 
-Spring boot 4 application\
-Postgres
-
-### UI
-
-- Vaadin + hilla
-
-### Backend
-
-- JPA
-- MVC
-
-### Test
-
-- test containers
-
-## Build
-
+Execute a clean build cycle to verify type compilation and process frontend bundles:
 ```bash
 mvn clean install
 ```
 
-## Connection
+---
 
-| Technology | Port |
-|:-----------|:----:|
-| postgres   | 5433 |
-| ui         | 8080 |
+## 🚀 Tech Stack
 
-## Data
+* **Backend Matrix:** Spring Boot 4 Application ecosystem
+* **Persistence Layer:** JPA (Hibernate)
+* **Web Layer:** Spring MVC
+* **Database Driver:** PostgreSQL Engine
 
-| Technology | Port  |
-|:-----------|:-----:|
-| postgres   | 5433  |
-| ui (https) | 18080 |
+### 🎨 User Interface (UI)
 
-# Credentials
+* Full-stack Reactive composition using **Vaadin + Hilla (React integration)**.
 
-| username | password |
-|:---------|:--------:|
-| admin    |  admin   |
-| user     |   user   |
+### 🧪 Test Automation
+
+* Isolated infrastructure integration mapping managed via **Testcontainers**.
+
+---
+
+## 🔌 Connection Network Mapping
+
+| Technology                    | Default Container Port |
+|:------------------------------|:----------------------:|
+| 🗄️ **PostgreSQL**            |         `5433`         |
+| ⚙️ **Backend Core Engine**    |        `31373`         |
+| 🖥️ **UI Client Application** |         `8080`         |
+
+---
+
+## 🔐 Authentication Credentials
+
+| Target Security Role          | Default Username | Default Password |
+|:------------------------------|:----------------:|:----------------:|
+| 🛡️ **Administrator Account** |     `admin`      |     `admin`      |
+| 👤 **Standard User Account**  |      `user`      |      `user`      |
