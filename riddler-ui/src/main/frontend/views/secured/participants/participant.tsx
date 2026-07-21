@@ -99,7 +99,9 @@ export function AdminParticipant() {
     }
 
     function openModal(publicationId: string, modalType: ModalType) {
-        setPublicationId(publicationId);
+        if (modalType === 'PUBLICATION') {
+            setPublicationId(publicationId);
+        }
         setModalType(modalType);
         setOpen(true);
     }
