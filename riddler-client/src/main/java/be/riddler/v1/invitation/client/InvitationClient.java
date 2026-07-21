@@ -1,6 +1,7 @@
 package be.riddler.v1.invitation.client;
 
 import be.riddler.common.header.Headers;
+import be.riddler.common.tag.Tags;
 import be.riddler.v1.invitation.client.model.CreateInvitation;
 import be.riddler.v1.invitation.client.model.Invitation;
 import be.riddler.v1.invitation.client.model.UpdateInvitation;
@@ -12,17 +13,18 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Encoding;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.service.annotation.DeleteExchange;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.PostExchange;
+import org.springframework.web.service.annotation.PutExchange;
 
 import java.util.List;
 import java.util.UUID;
@@ -33,10 +35,12 @@ import java.util.UUID;
  * @author dnoulet
  * @version 1.0.0 10/05/2026
  */
+@Tag(name = Tags.INVITATIONS)
 public interface InvitationClient {
+
     @Operation(
             method = "POST",
-            tags = "invitations",
+            tags = Tags.INVITATIONS,
             operationId = "create",
             summary = "Creates an invitation",
             parameters = {
@@ -61,13 +65,13 @@ public interface InvitationClient {
                     )
             }
     )
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostExchange
     @ResponseStatus(HttpStatus.CREATED)
     @NonNull Invitation create(@RequestBody @NonNull CreateInvitation createInvitation);
 
     @Operation(
             method = "PUT",
-            tags = "invitations",
+            tags = Tags.INVITATIONS,
             operationId = "update",
             summary = "Updates an invitation",
             parameters = {
@@ -93,13 +97,13 @@ public interface InvitationClient {
                     )
             }
     )
-    @PutMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutExchange(url = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @NonNull Invitation update(@PathVariable(name = "id") UUID invitationId, @RequestBody @NonNull UpdateInvitation updateInvitation);
 
     @Operation(
             method = "GET",
-            tags = "invitations",
+            tags = Tags.INVITATIONS,
             summary = "Retrieve the invitation corresponding to the id",
             operationId = "findById",
             parameters = {
@@ -116,13 +120,13 @@ public interface InvitationClient {
                     )
             }
     )
-    @GetMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "{id}")
     @ResponseStatus(HttpStatus.OK)
     @NonNull Invitation findById(@PathVariable(name = "id") @NonNull UUID invitationId);
 
     @Operation(
             method = "GET",
-            tags = "invitations",
+            tags = Tags.INVITATIONS,
             summary = "Retrieves the invitations corresponding to the participant id",
             operationId = "findInvitationsByParticipantId",
             parameters = {
@@ -139,13 +143,13 @@ public interface InvitationClient {
                     )
             }
     )
-    @GetMapping(path = "/participants/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "/participants/{id}")
     @ResponseStatus(HttpStatus.OK)
     @NonNull List<@NonNull Invitation> findInvitationsByParticipantId(@PathVariable(name = "id") @NonNull UUID participantId);
 
     @Operation(
             method = "DELETE",
-            tags = "invitations",
+            tags = Tags.INVITATIONS,
             summary = "Deletes the invitation corresponding to the id",
             operationId = "deleteById",
             parameters = {
@@ -161,13 +165,13 @@ public interface InvitationClient {
                     )
             }
     )
-    @DeleteMapping(path = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteExchange(url = "{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteById(@PathVariable(name = "id") @NonNull UUID invitationId);
 
     @Operation(
             method = "GET",
-            tags = "invitations",
+            tags = Tags.INVITATIONS,
             summary = "Generates a token",
             operationId = "generateToken",
             parameters = {
@@ -184,7 +188,31 @@ public interface InvitationClient {
                     )
             }
     )
-    @GetMapping(path = "{id}/generate", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "{id}/generate")
     @ResponseStatus(HttpStatus.CREATED)
     @NonNull Invitation generateToken(@PathVariable(name = "id") @NonNull UUID invitationId);
+
+    @Operation(
+            method = "GET",
+            tags = Tags.INVITATIONS,
+            summary = "Finds the token",
+            operationId = "findByToken",
+            parameters = {
+                    @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class)),
+                    @Parameter(name = "id", in = ParameterIn.PATH, schema = @Schema(implementation = String.class))
+            },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = Invitation.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = ProblemDetail.class))
+                    )
+            }
+    )
+    @GetExchange(url = "/token/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    @NonNull Invitation findByToken(@PathVariable(name = "id") @NonNull String token);
 }

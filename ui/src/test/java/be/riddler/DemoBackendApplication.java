@@ -1,6 +1,5 @@
 package be.riddler;
 
-import be.riddler.configuration.TestcontainersConfiguration;
 import org.springframework.boot.SpringApplication;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -13,8 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles("test")
 public class DemoBackendApplication {
     static void main(String[] args) {
-        SpringApplication.from(Application::main)
-                .with(TestcontainersConfiguration.class)
+        SpringApplication.from(UIApplication::main)
                 .run(args);
     }
 }

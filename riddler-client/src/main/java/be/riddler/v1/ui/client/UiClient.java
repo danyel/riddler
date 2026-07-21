@@ -1,6 +1,7 @@
 package be.riddler.v1.ui.client;
 
 import be.riddler.common.header.Headers;
+import be.riddler.common.tag.Tags;
 import be.riddler.v1.ui.client.model.Translation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -11,11 +12,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.List;
 import java.util.UUID;
@@ -26,11 +26,12 @@ import java.util.UUID;
  * @author dnoulet
  * @version 1.0.0 26/04/2026
  */
-@Tag(name = "ui")
+@Tag(name = Tags.UI)
 public interface UiClient {
+
     @Operation(
             method = "GET",
-            tags = "ui",
+            tags = Tags.UI,
             summary = "Retrieves all possible icon names",
             operationId = "icons",
             parameters = {
@@ -47,13 +48,13 @@ public interface UiClient {
                     )
             }
     )
-    @GetMapping(path = "/icons", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "/icons")
     @ResponseStatus(HttpStatus.OK)
     List<String> icons();
 
     @Operation(
             method = "GET",
-            tags = "ui",
+            tags = Tags.UI,
             summary = "Retrieves all supported languages",
             operationId = "supportedLanguages",
             parameters = {
@@ -70,13 +71,13 @@ public interface UiClient {
                     )
             }
     )
-    @GetMapping(path = "/supported-languages", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "/supported-languages")
     @ResponseStatus(HttpStatus.OK)
     List<String> supportedLanguages();
 
     @Operation(
             method = "GET",
-            tags = "ui",
+            tags = Tags.UI,
             summary = "Retrieves all question types",
             operationId = "questionTypes",
             parameters = {
@@ -93,13 +94,13 @@ public interface UiClient {
                     )
             }
     )
-    @GetMapping(path = "/question-types", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "/question-types")
     @ResponseStatus(HttpStatus.OK)
     List<String> questionTypes();
 
     @Operation(
             method = "GET",
-            tags = "ui",
+            tags = Tags.UI,
             summary = "Retrieves translations for a specific language",
             operationId = "translations",
             parameters = {
@@ -117,13 +118,13 @@ public interface UiClient {
                     )
             }
     )
-    @GetMapping(path = "/translations", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "/translations")
     @ResponseStatus(HttpStatus.OK)
     List<Translation> translations(@RequestParam(name = "language") String language);
 
     @Operation(
             method = "GET",
-            tags = "ui",
+            tags = Tags.UI,
             summary = "Retrieves translations for a specific language",
             operationId = "translate",
             parameters = {
@@ -142,7 +143,7 @@ public interface UiClient {
                     )
             }
     )
-    @GetMapping(path = "/translate", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "/translate")
     @ResponseStatus(HttpStatus.OK)
     Translation translate(@RequestParam(name = "language") String language, @RequestParam(name = "key") String key);
 }

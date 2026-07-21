@@ -1,0 +1,68 @@
+swagger:
+  root: http://localhost:31373
+application:
+  auth:
+    secret: Mke7DcQEFTfDK1Vi7FVWAlDm3ei5MvEZmLA1nnTfJMM=
+spring:
+  application:
+    version: @project.version@
+    name: riddler-api
+  datasource:
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 1000
+      jdbc-url: ${spring.datasource.url}
+      driver-class-name: org.postgresql.Driver
+      auto-commit: false
+      schema: riddler
+    username: app_user
+    password: app_user_password
+    url: jdbc:postgresql://localhost:5433/app_user
+    schema: riddler
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        default_schema: riddler
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+    defer-datasource-initialization: false
+hibernate:
+  generate_statistics: false
+vaadin:
+  devmode:
+    devTools:
+      enabled: false
+management:
+  health:
+    status:
+      http-mapping:
+        UP: 207
+  endpoints:
+    web:
+      exposure:
+        include: "refresh,health,info,metrics"
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        custom:
+          include: diskSpace,ping
+          show-components: always
+      show-details: always
+  tracing:
+    sampling:
+      probability: 1.0
+#server:
+#  port: 18080
+#  ssl:
+#    enabled: true
+#    key-store: classpath:riddler.urpi.be.p12
+#    key-store-type: PKCS12
+#    key-store-password: secret_password
+#    key-alias: riddler.urpi.be
+#  address: riddler.urpi.be
+server:
+  port: 31373

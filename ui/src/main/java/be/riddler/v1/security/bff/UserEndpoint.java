@@ -1,7 +1,6 @@
 package be.riddler.v1.security.bff;
 
-import be.riddler.v1.common.http.Unauthorized;
-import be.riddler.v1.invitation.repository.InvitationRepository;
+import be.riddler.v1.invitation.client.InvitationClient;
 import be.riddler.v1.security.client.model.UserInfo;
 import be.riddler.v1.settings.constants.UserContext;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
@@ -30,7 +29,7 @@ import static lombok.AccessLevel.PACKAGE;
 @AnonymousAllowed
 @RequiredArgsConstructor(access = PACKAGE)
 public class UserEndpoint {
-    private final InvitationRepository invitationRepository;
+    private final InvitationClient invitationClient;
 
     public @NonNull UserInfo getAuthenticatedUser() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,15 +45,14 @@ public class UserEndpoint {
     }
 
     public void useToken(UUID invitationId, String token) {
-        var invitationEntity = invitationRepository.findById(invitationId).orElseThrow();
-        if (Objects.equals(invitationEntity.getStoredToken(), token)) {
+        var invitation = invitationClient.findById(invitationId);
+        if (Objects.equals(invitation.storedToken(), token)) {
             SecurityContextHolder.clearContext();
             List<SimpleGrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_PARTICIPANT"));
-            var authentication = new UsernamePasswordAuthenticationToken(invitationEntity.getParticipantId(), token, authorities);
+            var authentication = new UsernamePasswordAuthenticationToken(invitation.participantId(), token, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } else {
             SecurityContextHolder.clearContext();
-            throw new Unauthorized("Invalid token");
         }
     }
 

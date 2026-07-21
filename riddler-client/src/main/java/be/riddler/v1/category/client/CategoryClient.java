@@ -1,6 +1,7 @@
 package be.riddler.v1.category.client;
 
 import be.riddler.common.header.Headers;
+import be.riddler.common.tag.Tags;
 import be.riddler.v1.category.client.model.Category;
 import be.riddler.v1.category.client.model.CreateCategory;
 import be.riddler.v1.category.client.model.UpdateCategory;
@@ -16,13 +17,13 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.service.annotation.DeleteExchange;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.PostExchange;
+import org.springframework.web.service.annotation.PutExchange;
 
 import java.util.List;
 import java.util.UUID;
@@ -33,13 +34,11 @@ import java.util.UUID;
  * @author dnoulet
  * @version 1.0.0 18/05/2026
  */
-@Tag(name = CategoryClient.TAG)
+@Tag(name = Tags.CATEGORIES)
 public interface CategoryClient {
-    String TAG = "categories";
-
     @Operation(
             method = "GET",
-            tags = TAG,
+            tags = Tags.CATEGORIES,
             summary = "Retrieves the categories",
             operationId = "findAll",
             parameters = {
@@ -56,13 +55,13 @@ public interface CategoryClient {
                     )
             }
     )
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange
     @ResponseStatus(HttpStatus.OK)
     @NonNull List<@NonNull Category> findAll();
 
     @Operation(
             method = "POST",
-            tags = TAG,
+            tags = Tags.CATEGORIES,
             summary = "Creates a category",
             operationId = "create",
             parameters = {
@@ -86,13 +85,13 @@ public interface CategoryClient {
                     )
             }
     )
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostExchange
     @ResponseStatus(HttpStatus.CREATED)
     @NonNull Category create(@NonNull @RequestBody CreateCategory createCategory);
 
     @Operation(
             method = "DELETE",
-            tags = TAG,
+            tags = Tags.CATEGORIES,
             summary = "Deletes a category by category id",
             operationId = "delete",
             parameters = {
@@ -112,13 +111,13 @@ public interface CategoryClient {
                     )
             }
     )
-    @DeleteMapping(path = "/{id}")
+    @DeleteExchange(url = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@NonNull @PathVariable(name = "id") UUID categoryId);
 
     @Operation(
             method = "PUT",
-            tags = TAG,
+            tags = Tags.CATEGORIES,
             summary = "Updates a category by category id",
             parameters = {
                     @Parameter(name = Headers.X_CORRELATION_ID, in = ParameterIn.HEADER, schema = @Schema(implementation = UUID.class))
@@ -141,7 +140,7 @@ public interface CategoryClient {
                     )
             }
     )
-    @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutExchange(url = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @NonNull Category update(@NonNull @PathVariable(name = "id") UUID categoryId, @RequestBody @NonNull UpdateCategory updateCategory);
 }

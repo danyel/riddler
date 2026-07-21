@@ -1,5 +1,6 @@
 package be.riddler.v1.security.client;
 
+import be.riddler.common.tag.Tags;
 import be.riddler.v1.security.client.model.UserInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -22,12 +23,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author dnoulet
  * @version 1.0.0 26/04/2026
  */
-@Tag(name = "security")
+@Tag(name = Tags.SECURITY)
 public interface SecurityClient {
+
     @SuppressWarnings("SpringMvcPathVariableDeclarationInspection")
     @Operation(
             method = "GET",
-            tags = "security",
+            tags = Tags.SECURITY,
             summary = "Authenticates the user",
             operationId = "authenticate",
             parameters = {

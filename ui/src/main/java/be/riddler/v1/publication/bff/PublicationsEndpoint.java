@@ -7,10 +7,6 @@ import be.riddler.v1.publication.client.model.CreatePublication;
 import be.riddler.v1.publication.client.model.Level;
 import be.riddler.v1.publication.client.model.Position;
 import be.riddler.v1.publication.client.model.Publication;
-import be.riddler.v1.publication.mapper.LevelMapper;
-import be.riddler.v1.publication.mapper.PositionMapper;
-import be.riddler.v1.publication.repository.LevelRepository;
-import be.riddler.v1.publication.repository.PositionRepository;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
 import lombok.RequiredArgsConstructor;
@@ -32,8 +28,6 @@ import static lombok.AccessLevel.PACKAGE;
 @RequiredArgsConstructor(access = PACKAGE)
 public class PublicationsEndpoint {
     private final PublicationClient publicationClient;
-    private final LevelRepository levelRepository;
-    private final PositionRepository positionRepository;
 
     public @NonNull Publication createPublication(@NonNull CreatePublication createPublication) {
         return publicationClient.createPublication(createPublication);
@@ -68,17 +62,11 @@ public class PublicationsEndpoint {
     }
 
     public @NonNull List<@NonNull Level> findLevelsByLevel(@NonNull String level) {
-        return levelRepository.findAllByLevelLikeIgnoreCase(level)
-                .stream()
-                .map(LevelMapper::fromEntity)
-                .toList();
+        return publicationClient.findLevelsByLevel(level);
     }
 
     public @NonNull List<@NonNull Position> findPositionsByPosition(@NonNull String position) {
-        return positionRepository.findAllByPositionLikeIgnoreCase(position)
-                .stream()
-                .map(PositionMapper::fromEntity)
-                .toList();
+        return publicationClient.findPositionsByPosition(position);
     }
 
     public @NonNull Level findLevelById(@NonNull UUID levelId) {

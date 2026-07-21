@@ -1,5 +1,7 @@
 swagger:
   root: http://localhost:8080
+riddler:
+  server: http://localhost:31373
 application:
   auth:
     secret: Mke7DcQEFTfDK1Vi7FVWAlDm3ei5MvEZmLA1nnTfJMM=
@@ -7,29 +9,6 @@ spring:
   application:
     version: @project.version@
     name: riddler-api
-  datasource:
-    hikari:
-      maximum-pool-size: 10
-      connection-timeout: 1000
-      jdbc-url: ${spring.datasource.url}
-      driver-class-name: org.postgresql.Driver
-      auto-commit: false
-      schema: riddler
-    username: app_user
-    password: app_user_password
-    url: jdbc:postgresql://localhost:5433/app_user
-    schema: riddler
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        default_schema: riddler
-    hibernate:
-      ddl-auto: none
-    open-in-view: false
-    defer-datasource-initialization: false
-hibernate:
-  generate_statistics: false
 vaadin:
   devmode:
     devTools:
