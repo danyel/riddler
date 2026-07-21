@@ -1,6 +1,5 @@
 # Riddler 🧩
 
-[![CodeQL](https://github.com/danyel/riddler/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/danyel/riddler/actions/workflows/github-code-scanning/codeql)
 [![Riddler build jdk 25](https://github.com/danyel/riddler/actions/workflows/maven.yml/badge.svg)](https://github.com/danyel/riddler/actions/workflows/maven.yml)
 ---
 
