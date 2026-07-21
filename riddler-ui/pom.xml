@@ -86,7 +86,7 @@
             <artifactId>vaadin-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>be.riddler.api</groupId>
+            <groupId>be.riddler</groupId>
             <artifactId>riddler-client</artifactId>
         </dependency>
 

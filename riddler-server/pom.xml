@@ -55,7 +55,7 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-            <groupId>be.riddler.api</groupId>
+            <groupId>be.riddler</groupId>
             <artifactId>riddler-client</artifactId>
         </dependency>
         <dependency>

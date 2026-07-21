@@ -67,7 +67,7 @@
                 <version>${openapi-ui.version}</version>
             </dependency>
             <dependency>
-                <groupId>be.riddler.api</groupId>
+                <groupId>be.riddler</groupId>
                 <artifactId>riddler-client</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
