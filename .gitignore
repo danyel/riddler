@@ -38,11 +38,11 @@ backend/src/main/frontend/generated/**
 src/main/frontend/generated/**
 backend/node_modules/
 src/main/frontend/generated/jar-resources/**
-ui/src/main/frontend/generated
-ui/src/main/bundles
+riddler-ui/src/main/frontend/generated
+riddler-ui/src/main/bundles
 infrastructure/data/
 
-ui/node_modules
-ui/src/main/frontend/node_modules
-ui/src/main/frontend/dummy-non-existing-folder
-ui/vite.generated.ts
+riddler-ui/node_modules
+riddler-ui/src/main/frontend/node_modules
+riddler-ui/src/main/frontend/dummy-non-existing-folder
+riddler-ui/vite.generated.ts

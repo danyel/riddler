@@ -10,9 +10,7 @@
     </parent>
 
     <artifactId>riddler-client</artifactId>
-    <groupId>be.riddler.api</groupId>
     <name>${module.name}</name>
-
 
     <dependencies>
         <dependency>
