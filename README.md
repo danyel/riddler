@@ -1,19 +1,7 @@
 # Riddler 🧩
 
-<!-- Tech Stack Badges -->
-<p align="left">
-  <img src="https://shields.io" alt="Java 25" />
-  <img src="https://shields.io" alt="Spring Boot 4" />
-  <img src="https://shields.io" alt="Vaadin" />
-  <img src="https://shields.io" alt="Hilla React" />
-  <img src="https://shields.io" alt="PostgreSQL" />
-</p>
-
-<!-- CI/CD Status Telemetry -->
-[![Java CI with Maven](https://github.com)](https://github.com)
-![GitHub repo size](https://shields.io)
-![GitHub last commit](https://shields.io)
-
+[![CodeQL](https://github.com/danyel/riddler/actions/workflows/github-code-scanning/codeql/badge.svg?event=status)](https://github.com/danyel/riddler/actions/workflows/github-code-scanning/codeql)
+[![Riddler build jdk 25](https://github.com/danyel/riddler/actions/workflows/maven.yml/badge.svg)](https://github.com/danyel/riddler/actions/workflows/maven.yml)
 ---
 
 ## 🛠️ Environment Setup
