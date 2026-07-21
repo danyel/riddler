@@ -1,5 +1,6 @@
 package be.riddler.configuration;
 
+import be.riddler.common.path.Paths;
 import be.riddler.configuration.filter.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +42,7 @@ class ServerSecurityConfiguration {
         http.csrf(csrf -> csrf.ignoringRequestMatchers(apiMatcher));
         http.authorizeHttpRequests(auth -> {
             auth.requestMatchers(
-                    "/swagger-ui/**", "/v3/api-docs/**"
+                    "/swagger-ui/**", "/v3/api-docs/**", "%s/**".formatted(Paths.SECURITY)
             ).permitAll();
             auth.requestMatchers(apiMatcher).authenticated();
 
