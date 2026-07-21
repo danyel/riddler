@@ -1,6 +1,7 @@
 package be.riddler.v1.participant.client;
 
 import be.riddler.common.header.Headers;
+import be.riddler.common.tag.Tags;
 import be.riddler.v1.participant.client.model.CreateParticipant;
 import be.riddler.v1.participant.client.model.Participant;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,15 +12,16 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Encoding;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.PostExchange;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,10 +34,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
  * @author dnoulet
  * @version 1.0.0 09/05/2026
  */
+@Tag(name = Tags.PARTICIPANTS)
 public interface ParticipantClient {
+
     @Operation(
             method = "GET",
-            tags = "participants",
+            tags = Tags.PARTICIPANTS,
             summary = "Retrieve the participant corresponding to the id",
             operationId = "findById",
             parameters = {
@@ -59,13 +63,13 @@ public interface ParticipantClient {
                     )
             }
     )
-    @GetMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @NonNull Participant findById(@PathVariable(name = "id") @NonNull UUID participantId);
 
     @Operation(
             method = "GET",
-            tags = "participants",
+            tags = Tags.PARTICIPANTS,
             summary = "Retrieve all participants",
             operationId = "findAll",
             parameters = {
@@ -88,13 +92,13 @@ public interface ParticipantClient {
                     )
             }
     )
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange
     @ResponseStatus(HttpStatus.OK)
     @NonNull List<@NonNull Participant> findAll();
 
     @Operation(
             method = "POST",
-            tags = "participants",
+            tags = Tags.PARTICIPANTS,
             operationId = "create",
             summary = "Creates a participant",
             parameters = {
@@ -128,7 +132,7 @@ public interface ParticipantClient {
                     )
             }
     )
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostExchange
     @ResponseStatus(HttpStatus.CREATED)
     @NonNull Participant create(@RequestBody @NonNull CreateParticipant participantDetail);
 }

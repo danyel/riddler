@@ -1,23 +1,19 @@
 package be.riddler.configuration;
 
-import be.riddler.configuration.filter.JwtAuthenticationFilter;
 import com.vaadin.flow.spring.security.VaadinSecurityConfigurer;
 import com.vaadin.flow.spring.security.stateless.VaadinStatelessSecurityConfigurer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authorization.EnableMultiFactorAuthentication;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.FactorGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithms;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Controller;
@@ -33,10 +29,6 @@ import java.util.Base64;
  * @author dnoulet
  * @version 1.0.0 26/04/2026
  */
-@EnableMultiFactorAuthentication(authorities = {
-        FactorGrantedAuthority.PASSWORD_AUTHORITY,
-        FactorGrantedAuthority.OTT_AUTHORITY
-})
 @EnableMethodSecurity(jsr250Enabled = true)
 @Configuration
 class SecurityConfiguration {
@@ -73,9 +65,6 @@ class SecurityConfiguration {
                         apiMatcher
                 )
         );
-
-        // 5. Place your JWT Filter BEFORE standard authentication filters
-        http.addFilterBefore(new JwtAuthenticationFilter(authSecret), UsernamePasswordAuthenticationFilter.class);
 
         // 6. Apply Vaadin security
         http.with(VaadinSecurityConfigurer.vaadin(), configurer -> configurer.loginView("/login"));

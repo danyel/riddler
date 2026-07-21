@@ -1,5 +1,6 @@
 package be.riddler.v1.question.bff;
 
+import be.riddler.v1.common.security.Roles;
 import be.riddler.v1.question.client.QuestionClient;
 import be.riddler.v1.question.client.model.AddOption;
 import be.riddler.v1.question.client.model.Option;
@@ -18,7 +19,7 @@ import static lombok.AccessLevel.PACKAGE;
  * @version 1.0.0 29/05/2026
  */
 @BrowserCallable
-@RolesAllowed("ADMIN")
+@RolesAllowed(Roles.ADMIN)
 @RequiredArgsConstructor(access = PACKAGE)
 public class OptionEndpoint {
     private final QuestionClient questionApi;

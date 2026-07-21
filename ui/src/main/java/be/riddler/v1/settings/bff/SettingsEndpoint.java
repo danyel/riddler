@@ -5,6 +5,7 @@ import be.riddler.v1.settings.model.Settings;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.jspecify.annotations.NonNull;
 
 import static lombok.AccessLevel.PACKAGE;
@@ -17,6 +18,7 @@ import static lombok.AccessLevel.PACKAGE;
  */
 @AnonymousAllowed
 @BrowserCallable
+@Slf4j
 @RequiredArgsConstructor(access = PACKAGE)
 public class SettingsEndpoint {
     private final SettingsClient settingsClient;

@@ -1,7 +1,6 @@
 package be.riddler.v1.invitation.bff;
 
-import be.riddler.v1.answer.mapper.AnswerMapper;
-import be.riddler.v1.answer.repository.AnswerRepository;
+import be.riddler.v1.answer.client.AnswerClient;
 import be.riddler.v1.invitation.bff.model.ParticipantInvitationDetail;
 import be.riddler.v1.invitation.client.InvitationClient;
 import be.riddler.v1.question.client.QuestionClient;
@@ -28,7 +27,7 @@ import static lombok.AccessLevel.PACKAGE;
 public class ParticipantInvitationEndpoint {
     private final InvitationClient invitationClient;
     private final QuestionClient questionClient;
-    private final AnswerRepository answerRepository;
+    private final AnswerClient answerClient;
 
     public @NonNull List<@NonNull Question> findByIds(@NonNull List<@NonNull UUID> questionIds) {
         return questionClient.getQuestionsById(questionIds);
@@ -36,12 +35,9 @@ public class ParticipantInvitationEndpoint {
 
     public @NonNull ParticipantInvitationDetail findById(@NonNull UUID invitationId) {
         var invitation = invitationClient.findById(invitationId);
-        var answers = answerRepository.findAllByInvitationId(invitationId);
         return new ParticipantInvitationDetail(
                 invitation,
-                answers.stream()
-                        .map(AnswerMapper::fromAnswerEntity)
-                        .toList()
+                answerClient.findByInvitationId(invitationId)
         );
     }
 }

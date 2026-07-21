@@ -1,11 +1,10 @@
 package be.riddler.v1.invitation.bff;
 
+import be.riddler.v1.common.security.Roles;
 import be.riddler.v1.invitation.client.InvitationClient;
 import be.riddler.v1.invitation.client.model.CreateInvitation;
 import be.riddler.v1.invitation.client.model.Invitation;
 import be.riddler.v1.invitation.client.model.UpdateInvitation;
-import be.riddler.v1.invitation.mapper.InvitationMapper;
-import be.riddler.v1.invitation.repository.InvitationRepository;
 import be.riddler.v1.question.client.QuestionClient;
 import be.riddler.v1.question.client.model.Question;
 import com.vaadin.hilla.BrowserCallable;
@@ -25,12 +24,11 @@ import static lombok.AccessLevel.PACKAGE;
  * @version 1.0.0 10/05/2026
  */
 @BrowserCallable
-@RolesAllowed({"USER", "ADMIN"})
+@RolesAllowed({Roles.ADMIN, Roles.USER})
 @RequiredArgsConstructor(access = PACKAGE)
 public class InvitationEndpoint {
     private final InvitationClient invitationClient;
     private final QuestionClient questionClient;
-    private final InvitationRepository invitationRepository;
 
     public @NonNull Invitation create(@NonNull CreateInvitation createInvitation) {
         return invitationClient.create(createInvitation);
@@ -41,8 +39,7 @@ public class InvitationEndpoint {
     }
 
     public @NonNull Invitation findByToken(@NonNull String token) {
-        var invitationEntity = invitationRepository.findByStoredToken(token);
-        return invitationEntity.map(InvitationMapper::fromInvitationEntity).orElseThrow();
+        return invitationClient.findByToken(token);
     }
 
     public void delete(@NonNull UUID invitationId) {

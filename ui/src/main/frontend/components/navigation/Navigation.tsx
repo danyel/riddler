@@ -5,6 +5,7 @@ import {Icon, MenuBar, MenuBarItem, MenuBarItemSelectedEvent} from "@vaadin/reac
 import {CSSProperties} from "react";
 import {useSettingsState} from "Frontend/views/secured/settings-context-provider";
 import {Navigate} from "Frontend/util/navigate";
+import {LOGGER} from "Frontend/util";
 
 export interface NavigationProperties {
     noMenu: boolean
@@ -32,6 +33,7 @@ function renderItemComponent(iconName: string, text: string) {
 
 export default function Navigation(props: NavigationProperties) {
     const {settings} = useSettingsState();
+    LOGGER.debug("Navigation settings[{}]", settings);
 
     const items: CustomMenuItem[] = [
         {

@@ -52,6 +52,7 @@
     "@vaadin/hilla-generator-utils": "25.1.0",
     "@vitejs/plugin-react": "5.1.4",
     "@vitest/browser": "^4.1.8",
+    "@vitest/browser-playwright": "^4.1.8",
     "magic-string": "0.30.21",
     "rollup-plugin-brotli": "3.1.0",
     "rollup-plugin-visualizer": "7.0.1",
@@ -62,8 +63,7 @@
     "vite-plugin-checker": "0.12.0",
     "vitest": "^4.1.8",
     "webdriverio": "^9.27.2",
-    "workbox-build": "7.4.0",
-    "@vitest/browser-playwright": "^4.1.8"
+    "workbox-build": "7.4.0"
   },
   "overrides": {
     "@vaadin/a11y-base": "25.1.0",
@@ -203,6 +203,6 @@
       "vite-plugin-checker": "0.12.0",
       "workbox-build": "7.4.0"
     },
-    "hash": "e9262bb219445046caae4899437fd4e7a022b0bfbb8ad4fed3f30bcbd2e9b1f0"
+    "hash": "249c2cecc18f1492d8ebf79cf0a29d0dec0eb79afc4a60a62d2d51396fb2008a"
   }
 }

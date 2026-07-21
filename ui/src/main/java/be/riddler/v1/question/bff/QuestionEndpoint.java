@@ -1,5 +1,6 @@
 package be.riddler.v1.question.bff;
 
+import be.riddler.v1.common.security.Roles;
 import be.riddler.v1.question.client.QuestionClient;
 import be.riddler.v1.question.client.model.AddOption;
 import be.riddler.v1.question.client.model.CreateQuestion;
@@ -24,38 +25,38 @@ import static lombok.AccessLevel.PACKAGE;
  * @version 1.0.0 11/04/2026
  */
 @BrowserCallable
-@RolesAllowed("ADMIN")
+@RolesAllowed(Roles.ADMIN)
 @RequiredArgsConstructor(access = PACKAGE)
 public class QuestionEndpoint {
-    private final QuestionClient questionApi;
+    private final QuestionClient questionClient;
 
     public @NonNull List<@NonNull Question> getQuestions() {
-        return questionApi.getQuestionsById(List.of());
+        return questionClient.getQuestionsById(List.of());
     }
 
     public @NonNull Question get(UUID uuid) {
-        return questionApi.findById(uuid);
+        return questionClient.findById(uuid);
     }
 
     public @NonNull Question update(UUID id, UpdateQuestion updateQuestion) {
-        return questionApi.update(id, updateQuestion);
+        return questionClient.update(id, updateQuestion);
     }
 
     public void delete(@NonNull UUID uuid) {
-        questionApi.delete(uuid);
+        questionClient.delete(uuid);
     }
 
     public Question create(CreateQuestion createQuestion) {
-        return questionApi.create(createQuestion);
+        return questionClient.create(createQuestion);
     }
 
     @Deprecated
     public @NonNull Option addOption(@NonNull AddOption addOption) {
-        return questionApi.addOption(addOption);
+        return questionClient.addOption(addOption);
     }
 
     @Deprecated
     public @NonNull Option updateOption(@NonNull UpdateOption updateOption) {
-        return questionApi.updateOption(updateOption);
+        return questionClient.updateOption(updateOption);
     }
 }

@@ -1,5 +1,6 @@
 package be.riddler.v1.menu.client;
 
+import be.riddler.common.tag.Tags;
 import be.riddler.v1.menu.client.model.Menu;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -8,10 +9,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.List;
 
@@ -21,11 +21,12 @@ import java.util.List;
  * @author dnoulet
  * @version 1.0.0 26/04/2026
  */
-@Tag(name = "menu")
+@Tag(name = Tags.MENU)
 public interface MenuClient {
+
     @Operation(
             method = "GET",
-            tags = "menu",
+            tags = Tags.MENU,
             summary = "Retrieves the menu of the logged in user",
             operationId = "menu",
             responses = {
@@ -39,7 +40,7 @@ public interface MenuClient {
                     )
             }
     )
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange
     @ResponseStatus(HttpStatus.OK)
-    List<Menu> menu(String username);
+    List<Menu> menu();
 }

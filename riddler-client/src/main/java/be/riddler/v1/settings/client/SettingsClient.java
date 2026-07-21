@@ -14,12 +14,12 @@ import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.service.annotation.DeleteExchange;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.PostExchange;
 
 import java.util.UUID;
 
@@ -47,7 +47,7 @@ public interface SettingsClient {
                     )
             }
     )
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange
     @ResponseStatus(HttpStatus.OK)
     @NonNull Settings getSettings();
 
@@ -72,7 +72,7 @@ public interface SettingsClient {
                     )
             }
     )
-    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostExchange(accept = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     @NonNull Settings createBookmark(@NonNull @RequestBody CreateBookmark createBookmark);
 
@@ -99,7 +99,7 @@ public interface SettingsClient {
                     )
             }
     )
-    @DeleteMapping(path = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteExchange(url = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteBookmark(@NonNull @PathVariable(name = "id") UUID bookmarkId);
 }
