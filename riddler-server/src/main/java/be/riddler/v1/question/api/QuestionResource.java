@@ -1,6 +1,5 @@
 package be.riddler.v1.question.api;
 
-import be.riddler.common.path.Paths;
 import be.riddler.v1.question.client.QuestionClient;
 import be.riddler.v1.question.client.model.AddOption;
 import be.riddler.v1.question.client.model.CreateQuestion;
@@ -26,6 +25,7 @@ import org.springframework.web.service.annotation.HttpExchange;
 import java.util.List;
 import java.util.UUID;
 
+import static be.riddler.common.path.Paths.QUESTION;
 import static lombok.AccessLevel.PACKAGE;
 
 /**
@@ -36,7 +36,7 @@ import static lombok.AccessLevel.PACKAGE;
  */
 @RestController
 @RequiredArgsConstructor(access = PACKAGE)
-@HttpExchange(url = Paths.QUESTION)
+@HttpExchange(url = QUESTION)
 class QuestionResource implements QuestionClient {
     private final CreateQuestionFeature createQuestionFeature;
     private final GetQuestionsFeature questionsFeature;

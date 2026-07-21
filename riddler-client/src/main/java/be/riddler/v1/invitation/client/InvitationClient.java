@@ -120,7 +120,7 @@ public interface InvitationClient {
                     )
             }
     )
-    @GetExchange(url = "{id}")
+    @GetExchange(url = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     @NonNull Invitation findById(@PathVariable(name = "id") @NonNull UUID invitationId);
 
@@ -165,7 +165,7 @@ public interface InvitationClient {
                     )
             }
     )
-    @DeleteExchange(url = "{id}")
+    @DeleteExchange(url = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void deleteById(@PathVariable(name = "id") @NonNull UUID invitationId);
 
@@ -188,7 +188,7 @@ public interface InvitationClient {
                     )
             }
     )
-    @GetExchange(url = "{id}/generate")
+    @GetExchange(url = "/{id}/generate")
     @ResponseStatus(HttpStatus.CREATED)
     @NonNull Invitation generateToken(@PathVariable(name = "id") @NonNull UUID invitationId);
 

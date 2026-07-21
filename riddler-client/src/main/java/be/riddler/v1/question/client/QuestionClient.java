@@ -81,7 +81,7 @@ public interface QuestionClient {
                     )
             }
     )
-    @GetExchange(url = "{id}")
+    @GetExchange(url = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     Question findById(@PathVariable(name = "id") UUID questionId);
 

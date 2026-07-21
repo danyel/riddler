@@ -1,5 +1,6 @@
 package be.riddler.v1.participant.bff;
 
+import be.riddler.v1.common.security.Roles;
 import be.riddler.v1.participant.client.ParticipantClient;
 import be.riddler.v1.participant.client.model.CreateParticipant;
 import be.riddler.v1.participant.client.model.Participant;
@@ -20,7 +21,7 @@ import static lombok.AccessLevel.PACKAGE;
  * @version 1.0.0 09/05/2026
  */
 @BrowserCallable
-@RolesAllowed("ADMIN")
+@RolesAllowed(Roles.ADMIN)
 @RequiredArgsConstructor(access = PACKAGE)
 public class ParticipantAdminEndpoint {
     private final ParticipantClient participantClient;

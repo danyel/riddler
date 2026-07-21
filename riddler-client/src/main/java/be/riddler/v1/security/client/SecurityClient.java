@@ -10,12 +10,14 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.service.annotation.GetExchange;
+
+import java.util.List;
 
 /**
  * SecurityApi
@@ -39,7 +41,7 @@ public interface SecurityClient {
             responses = {
                     @ApiResponse(
                             responseCode = "200",
-                            content = @Content(array = @ArraySchema(schema = @Schema(implementation = UserInfo.class)))
+                            content = @Content(schema = @Schema(implementation = UserInfo.class))
                     ),
                     @ApiResponse(
                             responseCode = "404",
@@ -47,7 +49,47 @@ public interface SecurityClient {
                     )
             }
     )
-    @GetMapping(path = "/{username}/{password}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetExchange(url = "/{username}/{password}")
     @ResponseStatus(HttpStatus.OK)
     UserInfo authenticate(@PathVariable(name = "username") String username, @PathVariable(name = "password") String password);
+
+    @Operation(
+            method = "GET",
+            tags = Tags.SECURITY,
+            summary = "Retrieves the roles of the logged in user",
+            operationId = "getAuthorities",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(array = @ArraySchema(schema = @Schema(implementation = String.class)))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = ProblemDetail.class))
+                    )
+            }
+    )
+    @GetExchange(url = "/roles")
+    @ResponseStatus(HttpStatus.OK)
+    @NonNull List<@NonNull String> getAuthorities();
+
+    @Operation(
+            method = "GET",
+            tags = Tags.SECURITY,
+            summary = "Authenticates the user",
+            operationId = "getAuthenticatedUser",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = UserInfo.class))
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = ProblemDetail.class))
+                    )
+            }
+    )
+    @GetExchange
+    @ResponseStatus(HttpStatus.OK)
+    UserInfo getAuthenticatedUser();
 }

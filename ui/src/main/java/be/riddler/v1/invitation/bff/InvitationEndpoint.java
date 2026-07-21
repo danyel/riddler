@@ -1,5 +1,6 @@
 package be.riddler.v1.invitation.bff;
 
+import be.riddler.v1.common.security.Roles;
 import be.riddler.v1.invitation.client.InvitationClient;
 import be.riddler.v1.invitation.client.model.CreateInvitation;
 import be.riddler.v1.invitation.client.model.Invitation;
@@ -23,7 +24,7 @@ import static lombok.AccessLevel.PACKAGE;
  * @version 1.0.0 10/05/2026
  */
 @BrowserCallable
-@RolesAllowed({"USER", "ADMIN"})
+@RolesAllowed({Roles.ADMIN, Roles.USER})
 @RequiredArgsConstructor(access = PACKAGE)
 public class InvitationEndpoint {
     private final InvitationClient invitationClient;

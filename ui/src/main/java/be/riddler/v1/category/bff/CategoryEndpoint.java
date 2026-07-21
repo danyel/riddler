@@ -4,6 +4,7 @@ import be.riddler.v1.category.client.CategoryClient;
 import be.riddler.v1.category.client.model.Category;
 import be.riddler.v1.category.client.model.CreateCategory;
 import be.riddler.v1.category.client.model.UpdateCategory;
+import be.riddler.v1.common.security.Roles;
 import com.vaadin.hilla.BrowserCallable;
 import jakarta.annotation.security.RolesAllowed;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 import static lombok.AccessLevel.PACKAGE;
 
+
 /**
  * CategoryEndpoint
  *
@@ -21,7 +23,7 @@ import static lombok.AccessLevel.PACKAGE;
  * @version 1.0.0 18/05/2026
  */
 @BrowserCallable
-@RolesAllowed({"ADMIN", "USER"})
+@RolesAllowed({Roles.ADMIN, Roles.USER})
 @RequiredArgsConstructor(access = PACKAGE)
 public class CategoryEndpoint {
     private final CategoryClient categoryClient;

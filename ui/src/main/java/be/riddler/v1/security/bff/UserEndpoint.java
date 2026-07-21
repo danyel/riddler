@@ -1,17 +1,15 @@
 package be.riddler.v1.security.bff;
 
 import be.riddler.v1.invitation.client.InvitationClient;
+import be.riddler.v1.security.client.SecurityClient;
 import be.riddler.v1.security.client.model.UserInfo;
-import be.riddler.v1.settings.constants.UserContext;
 import com.vaadin.flow.server.auth.AnonymousAllowed;
 import com.vaadin.hilla.BrowserCallable;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,18 +28,10 @@ import static lombok.AccessLevel.PACKAGE;
 @RequiredArgsConstructor(access = PACKAGE)
 public class UserEndpoint {
     private final InvitationClient invitationClient;
+    private final SecurityClient securityClient;
 
     public @NonNull UserInfo getAuthenticatedUser() {
-        var auth = SecurityContextHolder.getContext().getAuthentication();
-        Assert.isTrue(auth != null, "Cannot pass null");
-        return new UserInfo(
-                auth.getName(),
-                auth.getAuthorities()
-                        .stream()
-                        .map(GrantedAuthority::getAuthority)
-                        .filter(Objects::nonNull)
-                        .toList()
-        );
+        return securityClient.getAuthenticatedUser();
     }
 
     public void useToken(UUID invitationId, String token) {
@@ -57,6 +47,6 @@ public class UserEndpoint {
     }
 
     public @NonNull List<@NonNull String> getAuthorities() {
-        return UserContext.availableRoles();
+        return securityClient.getAuthorities();
     }
 }

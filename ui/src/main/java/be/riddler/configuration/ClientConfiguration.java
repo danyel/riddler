@@ -1,6 +1,5 @@
 package be.riddler.configuration;
 
-import be.riddler.common.path.Paths;
 import be.riddler.v1.activity.client.ActivityClient;
 import be.riddler.v1.answer.client.AnswerClient;
 import be.riddler.v1.category.client.CategoryClient;
@@ -9,6 +8,7 @@ import be.riddler.v1.menu.client.MenuClient;
 import be.riddler.v1.participant.client.ParticipantClient;
 import be.riddler.v1.publication.client.PublicationClient;
 import be.riddler.v1.question.client.QuestionClient;
+import be.riddler.v1.security.client.SecurityClient;
 import be.riddler.v1.settings.client.SettingsClient;
 import be.riddler.v1.ui.client.UiClient;
 import jakarta.servlet.http.Cookie;
@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
@@ -27,8 +29,21 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+import static be.riddler.common.path.Paths.ACTIVITY;
+import static be.riddler.common.path.Paths.ANSWER;
+import static be.riddler.common.path.Paths.CATEGORY;
+import static be.riddler.common.path.Paths.INVITATION;
+import static be.riddler.common.path.Paths.MENU;
+import static be.riddler.common.path.Paths.PARTICIPANT;
+import static be.riddler.common.path.Paths.PUBLICATION;
+import static be.riddler.common.path.Paths.QUESTION;
+import static be.riddler.common.path.Paths.SECURITY;
+import static be.riddler.common.path.Paths.SETTING;
+import static be.riddler.common.path.Paths.UI;
+
 /**
  * ClientConfiguration
+ * Back end configuration
  *
  * @author dnoulet
  * @version 1.0.0 12/07/2026
@@ -40,58 +55,63 @@ class ClientConfiguration {
 
     @Bean
     ActivityClient activityClient() {
-        return createClient(ActivityClient.class, Paths.ACTIVITY);
+        return createClient(ActivityClient.class, ACTIVITY);
     }
 
     @Bean
     AnswerClient answerClient() {
-        return createClient(AnswerClient.class, Paths.ANSWER);
+        return createClient(AnswerClient.class, ANSWER);
     }
 
     @Bean
     SettingsClient settingsClient() {
-        return createClient(SettingsClient.class, Paths.SETTING);
+        return createClient(SettingsClient.class, SETTING);
     }
 
     @Bean
     CategoryClient categoryClient() {
-        return createClient(CategoryClient.class, Paths.CATEGORY);
+        return createClient(CategoryClient.class, CATEGORY);
     }
 
     @Bean
     InvitationClient invitationClient() {
-        return createClient(InvitationClient.class, Paths.INVITATION);
+        return createClient(InvitationClient.class, INVITATION);
     }
 
     @Bean
     QuestionClient questionClient() {
-        return createClient(QuestionClient.class, Paths.QUESTION);
+        return createClient(QuestionClient.class, QUESTION);
     }
 
     @Bean
     MenuClient menuClient() {
-        return createClient(MenuClient.class, Paths.MENU);
+        return createClient(MenuClient.class, MENU);
     }
 
     @Bean
     ParticipantClient participantClient() {
-        return createClient(ParticipantClient.class, Paths.PARTICIPANT);
+        return createClient(ParticipantClient.class, PARTICIPANT);
     }
 
     @Bean
     PublicationClient publicationClient() {
-        return createClient(PublicationClient.class, Paths.PUBLICATION);
+        return createClient(PublicationClient.class, PUBLICATION);
     }
 
     @Bean
     UiClient uiClient() {
-        return createClient(UiClient.class, Paths.UI);
+        return createClient(UiClient.class, UI);
+    }
+
+    @Bean
+    SecurityClient securityClient() {
+        return createClient(SecurityClient.class, SECURITY);
     }
 
     private <C> C createClient(Class<C> clazz, String contextPath) {
         var log = LoggerFactory.getLogger(clazz);
-        var bufferingFactory = new org.springframework.http.client.BufferingClientHttpRequestFactory(
-                new org.springframework.http.client.SimpleClientHttpRequestFactory()
+        var bufferingFactory = new BufferingClientHttpRequestFactory(
+                new SimpleClientHttpRequestFactory()
         );
         var restClient = RestClient.builder()
                 .baseUrl("%s/%s".formatted(riddlerServer, contextPath))
@@ -102,6 +122,7 @@ class ClientConfiguration {
                         var servletRequest = attributes.getRequest();
                         var cookies = servletRequest.getCookies();
 
+                        // settings security for the rest calls to the backend
                         if (cookies != null) {
                             var headerAndPayload = Arrays.stream(cookies)
                                     .filter(c -> "jwt.headerAndPayload".equals(c.getName()))

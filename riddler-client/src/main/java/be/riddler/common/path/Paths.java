@@ -17,4 +17,5 @@ public class Paths {
     public static final String PARTICIPANT = "/participant/v1/participants";
     public static final String PUBLICATION = "/publication/v1/publications";
     public static final String UI = "/ui/v1/ui";
+    public static final String SECURITY = "/security/v1/security";
 }
