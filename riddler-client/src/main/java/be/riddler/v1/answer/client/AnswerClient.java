@@ -112,7 +112,7 @@ public interface AnswerClient {
             }
     )
     @PostExchange
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     Answer create(@RequestBody CreateAnswer createAnswer);
 
     @Operation(

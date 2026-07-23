@@ -1,6 +1,6 @@
 package be.riddler.v1.invitation.api;
 
-import be.riddler.common.AbstractMockTest;
+import be.riddler.common.resource.AbstractResourceIntegrationTest;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
  * @author dnoulet
  * @version 1.0.0 31/05/2026
  */
-class InvitationResourceIntegrationTest extends AbstractMockTest {
+class InvitationResourceIntegrationTest extends AbstractResourceIntegrationTest {
 
     @Test
     void create() {
