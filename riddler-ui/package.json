@@ -26,7 +26,7 @@
     "lucide-react": "^1.16.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "react-router": "7.13.1",
+    "react-router": "8.3.0",
     "react-router-dom": "^7.14.2"
   },
   "devDependencies": {
@@ -171,7 +171,7 @@
       "lit": "3.3.2",
       "react": "19.2.4",
       "react-dom": "19.2.4",
-      "react-router": "7.13.1"
+      "react-router": "8.3.0"
     },
     "devDependencies": {
       "@babel/preset-react": "7.28.5",
